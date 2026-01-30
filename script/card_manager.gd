@@ -14,14 +14,15 @@ var SPR_SIZE = Vector2(60,87)
 var CARD_SIZE = Vector2(120, 174);
 var DEAL_DELAY = 0.05
 	
-var TYPES = [
-	func (s): s.shuffle(),
-	func (n): str( int(n) * 10 ),
-]
+#var TYPES = [
+#	func (s): s.shuffle(),
+#	func (n): str( float(n) * 10 ),
+#]
 
-var REGS = [
-	
-]
+#var REGS = [
+#	RegEx.create_from_string("^[A-Za-z]{3,}$"),
+#	RegEx.create_from_string("^[+-]?[0-9]*\\.?[0-9]+$")
+#]
 
 func _process(_delta: float) -> void:
 	pass
@@ -38,16 +39,7 @@ func deselect() -> void:
 	selected = false;
 	
 func get_full_deck(shuffle : bool, faceUp : bool = false) -> Array[Card]:
-	var d : Array[Card] = []
-	for suit in range(4):
-		for rank in range(13):
-			d.append(cardPreset.instantiate())
-			d[-1].rank = rank
-			d[-1].suit = suit
-			d[-1].faceUp = faceUp;
-			d[-1].z_index = 1;
-	if shuffle: d.shuffle()
-	return d
+	return []
 	
 func deal_delay(t : float = DEAL_DELAY) -> void:
 	await get_tree().create_timer(t).timeout
