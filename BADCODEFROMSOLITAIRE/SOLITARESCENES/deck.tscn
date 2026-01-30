@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkgkoslxckerj"]
+
+[ext_resource type="Script" uid="uid://cevjnij83nflk" path="res://BADCODEFROMSOLITAIRE/scripts/deck.gd" id="1_ow56c"]
+[ext_resource type="Texture2D" uid="uid://dv1v7yjyalg64" path="res://textures/cardback.png" id="2_f0yuw"]
+[ext_resource type="PackedScene" uid="uid://dc45jpsraucbl" path="res://BADCODEFROMSOLITAIRE/SOLITARESCENES/card_collider.tscn" id="3_l42df"]
+
+[node name="Deck" type="Node2D"]
+script = ExtResource("1_ow56c")
+
+[node name="DeckTex" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_f0yuw")
+
+[node name="Area2D" parent="." instance=ExtResource("3_l42df")]
+scale = Vector2(1, 1)
