@@ -1,6 +1,8 @@
 extends TextEdit
 
 func _ready():
+	randomize()
+	
 	var http := HTTPRequest.new()
 	add_child(http)
 	http.request_completed.connect(_on_request_completed)
@@ -12,7 +14,7 @@ func _ready():
 	]
 
 	var body = JSON.stringify({
-		"id": 518819
+		"id": randi() % 800000
 	})
 
 	var err = http.request(

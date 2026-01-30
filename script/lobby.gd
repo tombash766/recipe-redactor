@@ -24,12 +24,12 @@ func _ready() -> void:
 # Callback from SceneTree.
 func _player_connected(_id: int) -> void:
 	# Someone connected, start the game!
-	var main: Node2D = load("res://main.tscn").instantiate()
+	var encrypt = load("res://encrypt.tscn").instantiate()
 	# Connect deferred so we can safely erase it from the callback.
-	main.game_finished.connect(_end_game, CONNECT_DEFERRED)
+	encrypt.game_finished.connect(_end_game, CONNECT_DEFERRED)
 
-	get_tree().get_root().add_child(main)
-	hide()
+	get_tree().get_root().add_child(encrypt)
+	queue_free()
 
 func _player_disconnected(_id: int) -> void:
 	if multiplayer.is_server():
@@ -103,7 +103,6 @@ func _on_host_pressed() -> void:
 
 
 func _on_join_pressed() -> void:
-	print("bruh")
 	var ip := address.get_text()
 	if not ip.is_valid_ip_address():
 		_set_status("IP address is invalid.", false)

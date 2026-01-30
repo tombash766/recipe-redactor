@@ -1,0 +1,81 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbr1a43nwmldv"]
+
+[ext_resource type="Script" uid="uid://cgpjq70xa3ojm" path="res://recipe.gd" id="1_410q7"]
+[ext_resource type="Script" uid="uid://hrrdpfw3mtih" path="res://script/encrypt.gd" id="1_m23ol"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k5kmn"]
+font_size = 120
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_m23ol"]
+font_size = 30
+font_color = Color(0.8073607, 0.834627, 0.90345323, 1)
+
+[node name="Encrypt" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m23ol")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_right = 798.0
+offset_bottom = 648.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
+
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "hello there"
+editable = false
+wrap_mode = 1
+caret_draw_when_editable_disabled = true
+script = ExtResource("1_410q7")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/TextEdit"]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 232.0
+offset_right = 308.0
+offset_bottom = 326.0
+text = "SELECTED WORD"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="StartCountdown" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -227.75
+offset_top = -90.875
+offset_right = 227.75
+offset_bottom = 90.875
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_k5kmn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RemainingCountdown" type="Label" parent="."]
+layout_mode = 1
+offset_left = 13.0
+offset_top = 10.0
+offset_right = 468.5
+offset_bottom = 191.75
+text = "5.0"
+label_settings = SubResource("LabelSettings_m23ol")
+
+[connection signal="caret_changed" from="ScrollContainer/TextEdit" to="ScrollContainer/TextEdit" method="_on_caret_changed"]
+[connection signal="timeout" from="Timer" to="." method="on_timer_expire"]
