@@ -69,15 +69,11 @@ func _on_caret_changed() -> void:
 		w = line[i]
 		count += len(w) + 1
 		i = i + 1
-		
+	
 	selectedWord = w
 	selectedInd = i - 1
 	selectedStart = count - len(line[i-1]) + 1
 	selectedEnd = count - 1
 	selectedLine = get_caret_line()
 	
-	if CardManager.selected:
-		playCard()
-	
-func playCard():
-	pass
+	CardManager.submit_word()
