@@ -1,22 +1,23 @@
 extends Control
 
+var encrypted_recipe: String
+
 func _ready() -> void:
 	$Timer.start()
 
 func on_timer_expire():
 	if multiplayer.is_server():
-		var recipe = get_parent().get_node("Encrypt").get_node("ScrollContainer").get_node("TextEdit").text
-		set_recipe.rpc(recipe)
+		set_recipe.rpc(encrypted_recipe)
 
 @rpc("any_peer", "call_remote", "reliable")
 func set_recipe(recipe: String):
-	var encrypt = get_parent().get_node("Encrypt")
-	
 	if !multiplayer.is_server():
-		var new_recipe = encrypt.get_node("ScrollContainer").get_node("TextEdit").text
-		set_recipe.rpc(new_recipe)
+		set_recipe.rpc(encrypted_recipe)
+	
+	var encrypt = get_parent().get_node_or_null("Encrypt")
+	if (encrypt != null):
+		encrypt.queue_free()
 		
-	encrypt.queue_free()
 	queue_free()
 	
 	var decrypt = load("res://decrypt.tscn").instantiate()

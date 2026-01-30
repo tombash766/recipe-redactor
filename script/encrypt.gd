@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 signal game_finished()
 
@@ -27,5 +27,6 @@ func on_timer_expire():
 	await get_tree().create_timer(2).timeout
 	
 	var intermission = load("res://intermission.tscn").instantiate()
+	intermission.encrypted_recipe = get_node("ScrollContainer").get_node("Recipe").text
 	get_tree().get_root().add_child(intermission)
-	hide()
+	queue_free()
