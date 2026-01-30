@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Recipe Redactor"
-run/main_scene="uid://r23xhgeqne0q"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+run/main_scene="uid://bkyb73ch8c2nq"
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [rendering]
