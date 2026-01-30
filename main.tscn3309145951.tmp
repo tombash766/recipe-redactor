@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://r23xhgeqne0q"]
+
+[ext_resource type="Script" uid="uid://cgpjq70xa3ojm" path="res://recipe.gd" id="1_ig7tw"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 288.0
+offset_right = 798.0
+offset_bottom = 648.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
+
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "hello there"
+editable = false
+wrap_mode = 1
+caret_draw_when_editable_disabled = true
+script = ExtResource("1_ig7tw")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScrollContainer/TextEdit"]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 232.0
+offset_right = 308.0
+offset_bottom = 326.0
+text = "SELECTED WORD"
+
+[connection signal="caret_changed" from="ScrollContainer/TextEdit" to="ScrollContainer/TextEdit" method="_on_caret_changed"]

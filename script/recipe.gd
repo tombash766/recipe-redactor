@@ -1,4 +1,12 @@
-extends TextEdit
+class_name Recipe extends TextEdit 
+
+var selectedWord
+var selectedLine
+var selectedStart
+var selectedEnd
+var selectedInd
+
+var deformations = []
 
 func _ready():
 	randomize()
@@ -12,7 +20,7 @@ func _ready():
 	var headers = [
 		"Content-Type: application/json"
 	]
-
+	
 	var body = JSON.stringify({
 		"id": randi() % 800000
 	})
@@ -52,9 +60,24 @@ func _on_request_completed(
 	set_text(json["title"] + "\n\n" + ingredients  + "\n\n" + instructions  ) 
 
 func _on_caret_changed() -> void:
-	print(get_caret_column())
-	print(get_caret_line())
-	var line = get_text().split("\n")[get_caret_line()]
+	var col = get_caret_column()
+	var line = get_text().split("\n")[get_caret_line()].split(" ")
+	var i = 0
 	var count = 0
+	var w = ""
+	while count < col:
+		w = line[i]
+		count += len(w) + 1
+		i = i + 1
+		
+	selectedWord = w
+	selectedInd = i - 1
+	selectedStart = count - len(line[i-1]) + 1
+	selectedEnd = count - 1
+	selectedLine = get_caret_line()
 	
-	get_child(0).set_text( get_text().split("\n")[get_caret_line()] )
+	if CardManager.selected:
+		playCard()
+	
+func playCard():
+	pass

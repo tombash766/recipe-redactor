@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckuleuvdpotcv"]
+
+[ext_resource type="Script" uid="uid://djjbtsw1pdrh8" path="res://BADCODEFROMSOLITAIRE/scripts/card_stack.gd" id="1_hcsra"]
+[ext_resource type="Texture2D" uid="uid://1ayfmxsr0bci" path="res://textures/empty.png" id="2_0g7k4"]
+[ext_resource type="PackedScene" uid="uid://dc45jpsraucbl" path="res://BADCODEFROMSOLITAIRE/SOLITARESCENES/card_collider.tscn" id="3_7fw0k"]
+
+[node name="CardStack" type="Node2D"]
+script = ExtResource("1_hcsra")
+offset = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_0g7k4")
+
+[node name="StackTop" parent="." instance=ExtResource("3_7fw0k")]
+scale = Vector2(1, 1)

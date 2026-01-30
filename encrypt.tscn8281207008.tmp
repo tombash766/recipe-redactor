@@ -8,20 +8,17 @@
 script = ExtResource("1_k5kmn")
 
 [node name="Hand" parent="." instance=ExtResource("3_k5kmn")]
-position = Vector2(581, 621)
-width = 400
-harshFacing = true
-blockAdd = false
-blockGet = false
+position = Vector2(542, 576)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_left = 105.0
-offset_right = 1066.0
-offset_bottom = 422.0
+visible = false
+offset_left = 288.0
+offset_right = 798.0
+offset_bottom = 648.0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 0
 
-[node name="Recipe" type="TextEdit" parent="ScrollContainer"]
+[node name="selectedWord" type="TextEdit" parent="ScrollContainer"]
 clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -29,7 +26,7 @@ size_flags_vertical = 3
 text = "hello there"
 editable = false
 wrap_mode = 1
-caret_multiple = false
+caret_draw_when_editable_disabled = true
 script = ExtResource("2_2dchv")
 
-[connection signal="caret_changed" from="ScrollContainer/Recipe" to="ScrollContainer/Recipe" method="_on_caret_changed"]
+[connection signal="caret_changed" from="ScrollContainer/selectedWord" to="ScrollContainer/selectedWord" method="_on_caret_changed"]
