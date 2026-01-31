@@ -1,7 +1,6 @@
 @abstract class_name Card
 extends Node2D
 
-@export var temp = false	
 var typeInd
 var numArgs
 var reg

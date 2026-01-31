@@ -7,6 +7,7 @@ var selectedEnd
 var selectedInd
 
 var deformations = []
+var PUNCTUATION = [".",",","(",")","{","}","[","]",";",":","'",'"',"-","`"]
 
 func _ready():
 	randomize()
@@ -26,7 +27,6 @@ func _ready():
 		push_error("Request failed to start: %s" % err)
 	CardManager.recipe = self
 
-
 func _on_request_completed(
 		_result: int,
 		response_code: int,
@@ -45,24 +45,28 @@ func _on_request_completed(
 	var instructions = "\n".join( json["instructions"] )
 	set_text(json["title"] + "\n\n" + ingredients  + "\n\n" + instructions  ) 
 
+func remove_punctuation(s):
+	for c in PUNCTUATION:
+		s.replace(c,"")
+	
 func _on_caret_changed() -> void:
+	
 	var col = get_caret_column()
 	var line = get_text().split("\n")[get_caret_line()].split(" ")
 	var i = 0
 	var count = 0
 	var w = ""
+	
 	while count < col:
 		w = line[i]
 		count += len(w) + 1
 		i = i + 1
 	
-	selectedWord = w.replace(" ","")
+	selectedWord = remove_punctuation(w)
 	selectedInd = i - 1
 	selectedStart = count - len(line[i-1]) + 1
 	selectedEnd = count - 1
 	selectedLine = get_caret_line()
-	
-	print(selectedWord)
 	
 	CardManager.submit_word(
 		{
@@ -73,6 +77,13 @@ func _on_caret_changed() -> void:
 	)
 
 func replace_words(originals, replacements):
+	var deformation = []
+	for i in range( len(originals) ):
+		deformation.push( {
+			"original" : originals[i],
+			"replacement" : replacements[i]
+		} )
+	deformations.push_back( deformation )
 	var t = get_text().split("\n")
 	for i in len(originals):
 		var l = t[ originals[i]["line"] ].split(" ")

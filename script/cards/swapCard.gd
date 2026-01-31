@@ -7,4 +7,7 @@ func setCardProps():
 	reg.compile("^[a-zA-Z0-9]*$", true)
 
 func distort(args):
-	return [ args[1], args[0] ]
+	var temp = args[0]["word"]
+	args[0]["word"] = args[1]["word"]
+	args[1]["word"] = temp
+	return args

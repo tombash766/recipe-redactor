@@ -52,6 +52,7 @@ func submit_word(w):
 	if cardSelected:
 		print(selectedCard.reg.search(w["word"]))
 	if cardSelected && selectedCard.reg.search(w["word"]) != null:
+		# don't allow two distortions on one word
 		arguments.push_back(w)
 		if len(arguments) == selectedCard.numArgs:
 			recipe.replace_words(arguments, selectedCard.distort(arguments))
