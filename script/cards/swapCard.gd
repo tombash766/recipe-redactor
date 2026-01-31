@@ -4,7 +4,7 @@ func setCardProps():
 	typeInd = 2
 	numArgs = 2
 	reg = RegEx.new()
-	reg.compile("[a-zA-Z0-9]*", true)
+	reg.compile("[a-zA-Z0-9]+", true)
 
 func distort(args):
 	var temp = args[0]["word"]
