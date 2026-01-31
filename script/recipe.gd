@@ -44,7 +44,7 @@ func _on_request_completed(
 	if json == null:
 		push_error("Invalid JSON")
 		return
-	var ingredients = "\n".join(json["ingredients"])
+	var ingredients = ", ".join(json["ingredients"])
 	var instructions = "\n".join( json["instructions"] )
 	var recipeText = json["title"] + "\n\n" + ingredients  + "\n\n" + instructions
 	if len(recipeText) > 1000 :
@@ -61,8 +61,9 @@ func decode_recipe_text(s: String) -> String:
 		"½":"0.5", "⅓":"0.33", "⅔":"0.66",
 		"¼":"0.25", "¾":"0.75", "⅛":"0.125",
 		"⅜":"0.375", "⅝":"0.625", "⅞":"0.875",
-		"&#39;":"'", "&quot;":"\"", "&amp;":"&",
-		"&frac12;":"0.5", "&frac14;":"0.25", "&frac34;":"0.75"
+		"&#39;":"'", "&#039;":"", "&nbsp":"\n", "&quot;":"\"", "&amp;":"&",
+		"&frac12;":"0.5", "&frac14;":"0.25", "&frac34;":"0.75",
+		",,":","
 	}
 	for key in replacements.keys():
 		s = s.replace(key, replacements[key])
