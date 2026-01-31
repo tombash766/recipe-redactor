@@ -4,11 +4,11 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		var o = get_obj_under_mouse()
 		if event.is_pressed():
-			if !CardManager.selected:
+			if !CardManager.cardSelected:
 				if o is Card:
 					CardManager.selectCard(o)
 			else:
-				if o is Card:
+				if o is Card && CardManager.selectedCard != o:
 					CardManager.deselect()
 					CardManager.selectCard(o)
 				elif o is Recipe && CardManager.selectedObj is Card:

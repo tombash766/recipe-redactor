@@ -10,7 +10,7 @@ signal card_removed
 
 func _ready():
 	stackTop = find_child("StackTop")
-	cards = CardManager.get_full_deck(true)
+	cards = CardManager.get_full_deck()
 
 func add_card(c):
 	super.add_card(c)

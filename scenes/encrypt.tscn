@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbr1a43nwmldv"]
+[gd_scene load_steps=5 format=3 uid="uid://r23xhgeqne0q"]
 
-[ext_resource type="Script" uid="uid://hrrdpfw3mtih" path="res://script/encrypt.gd" id="1_k5kmn"]
 [ext_resource type="Script" uid="uid://cgpjq70xa3ojm" path="res://script/recipe.gd" id="2_2dchv"]
-[ext_resource type="PackedScene" uid="uid://u26mkss0obsl" path="res://hand.tscn" id="3_k5kmn"]
+[ext_resource type="PackedScene" uid="uid://u26mkss0obsl" path="res://scenes/cards/hand.tscn" id="3_k5kmn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k5kmn"]
 font_size = 146
@@ -12,7 +11,6 @@ font_color = Color(1, 0, 0, 1)
 font_size = 51
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_k5kmn")
 
 [node name="Hand" parent="." instance=ExtResource("3_k5kmn")]
 position = Vector2(581, 621)

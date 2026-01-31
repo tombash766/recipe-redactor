@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://x1i6271wv8tv"]
+
+[ext_resource type="PackedScene" uid="uid://ycndkh5uk54t" path="res://scenes/cards/card.tscn" id="1_cq5mx"]
+[ext_resource type="Script" uid="uid://bq4x04viqcmv1" path="res://script/cards/shuffleCard.gd" id="2_wywdf"]
+
+[node name="ShuffleCard" instance=ExtResource("1_cq5mx")]
+script = ExtResource("2_wywdf")

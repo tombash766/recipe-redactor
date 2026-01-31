@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Recipe Redactor"
-run/main_scene="uid://bkyb73ch8c2nq"
+run/main_scene="uid://r23xhgeqne0q"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-CardManager="*res://script/card_manager.gd"
+CardManager="*res://script/cards/card_manager.gd"
 InputManager="*res://script/input_manager.gd"
 
 [rendering]
