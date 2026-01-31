@@ -11,5 +11,17 @@ func distort(arg):
 	var b = a.duplicate()
 	while b == a:
 		a.shuffle()
-	arg[0]["word"] = "".join(a)
+	arg[0]["word"] = cap_if_capped(arg[0]["word"],"".join(a))
 	return arg
+
+func cap_if_capped(teststr, s):
+	if is_capped(teststr):
+		return cap(s)
+	else:
+		return s.to_lower()
+	
+func is_capped(s):
+	return RegEx.create_from_string("[A-Z][A-Za-z]*").search(s) != null
+
+func cap(s):
+	return s[0].to_upper() + s.substr(1).to_lower()

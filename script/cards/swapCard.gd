@@ -8,6 +8,18 @@ func setCardProps():
 
 func distort(args):
 	var temp = args[0]["word"]
-	args[0]["word"] = args[1]["word"]
-	args[1]["word"] = temp
+	args[0]["word"] = cap_if_capped(args[0]["word"], args[1]["word"])
+	args[1]["word"] = cap_if_capped(args[1]["word"], temp)
 	return args
+
+func cap_if_capped(teststr, s):
+	if is_capped(teststr):
+		return cap(s)
+	else:
+		return s.to_lower()
+	
+func is_capped(s):
+	return RegEx.create_from_string("[A-Z][A-Za-z]*").search(s) != null
+
+func cap(s):
+	return s[0].to_upper() + s.substr(1).to_lower()

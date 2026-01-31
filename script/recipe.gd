@@ -87,7 +87,7 @@ func _on_caret_changed() -> void:
 	var count = 0
 	var w = ""
 	
-	while count < col:
+	while count <= col:
 		w = line[i]
 		count += len(w) + 1
 		i = i + 1
@@ -97,7 +97,6 @@ func _on_caret_changed() -> void:
 	if valid == null: return
 	
 	selectedWord = valid.get_string()
-	
 	selectedInd = i - 1
 	selectedLine = get_caret_line()
 	
@@ -108,6 +107,10 @@ func _on_caret_changed() -> void:
 				
 	if CardManager.selectedCard is SwapCard && CardManager.arguments != []:
 		if CardManager.arguments[0]["word"] == selectedWord:
+			return
+	
+	if CardManager.selectedCard is WordCard:
+		if CardManager.selectedCard.word == selectedWord:
 			return
 	
 	print("accepted %s" % selectedWord)

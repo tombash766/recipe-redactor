@@ -33,8 +33,8 @@ var WORDLIST = [
 	"blend",
 	"banana",
 	"eggs",
-	"raise",
-	"syrup",
+	"cook",
+	"heat",
 	"simmer",
 	"molotov"
 ]
