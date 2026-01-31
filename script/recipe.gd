@@ -7,9 +7,12 @@ var selectedEnd
 var selectedInd
 
 var deformations = []
-var PUNCTUATION = [".",",","(",")","{","}","[","]",";",":","'",'"',"-","`"]
 
 func _ready():
+	set_random_recipe()
+	CardManager.recipe = self
+	
+func set_random_recipe():
 	randomize()
 	var http := HTTPRequest.new()
 	add_child(http)
@@ -25,7 +28,6 @@ func _ready():
 	)
 	if err != OK:
 		push_error("Request failed to start: %s" % err)
-	CardManager.recipe = self
 
 func _on_request_completed(
 		_result: int,
@@ -34,7 +36,8 @@ func _on_request_completed(
 		body: PackedByteArray
 	):
 	if response_code != 200:
-		push_error("HTTP error: %s" % response_code)
+		push_error("HTTP error: %s\nretrying.." % response_code)
+		set_random_recipe()
 		return
 	var t = body.get_string_from_utf8()
 	var json = JSON.parse_string(t)
@@ -43,11 +46,26 @@ func _on_request_completed(
 		return
 	var ingredients = "\n".join(json["ingredients"])
 	var instructions = "\n".join( json["instructions"] )
-	set_text(json["title"] + "\n\n" + ingredients  + "\n\n" + instructions  ) 
+	var recipeText = json["title"] + "\n\n" + ingredients  + "\n\n" + instructions
+	if len(recipeText) > 1000 :
+		print( "recipe too long: %s\nretrying.." % len(recipeText) )
+		set_random_recipe()
+		return
+		
+	recipeText = decode_recipe_text(recipeText)
+	
+	set_text( recipeText ) 
 
-func remove_punctuation(s):
-	for c in PUNCTUATION:
-		s = s.replace(c,"")
+func decode_recipe_text(s: String) -> String:
+	var replacements = {
+		"½":"0.5", "⅓":"0.33", "⅔":"0.66",
+		"¼":"0.25", "¾":"0.75", "⅛":"0.125",
+		"⅜":"0.375", "⅝":"0.625", "⅞":"0.875",
+		"&#39;":"'", "&quot;":"\"", "&amp;":"&",
+		"&frac12;":"0.5", "&frac14;":"0.25", "&frac34;":"0.75"
+	}
+	for key in replacements.keys():
+		s = s.replace(key, replacements[key])
 	return s
 
 func replace_preserve_punct(s,to_word):

@@ -22,6 +22,18 @@ var MAX_VELO = 100
 var SPR_SIZE = Vector2(60,87)
 var CARD_SIZE = Vector2(120, 174);
 var DEAL_DELAY = 0.05
+var WORDLIST = [
+	"oven",
+	"celsius",
+	"fahrenheit",
+	"blend",
+	"banana",
+	"eggs",
+	"raise",
+	"syrup",
+	"simmer",
+	"molotov"
+]
 
 func findDealer():
 	dealer = get_tree().current_scene.get_node("Dealer")

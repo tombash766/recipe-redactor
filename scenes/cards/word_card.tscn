@@ -1,15 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://mve14du7hnyp"]
+[gd_scene load_steps=5 format=3 uid="uid://mve14du7hnyp"]
 
 [ext_resource type="PackedScene" uid="uid://ycndkh5uk54t" path="res://scenes/cards/card.tscn" id="1_m8yko"]
 [ext_resource type="Script" uid="uid://uxvuevlk3sl" path="res://script/cards/wordCard.gd" id="2_k5nk6"]
+[ext_resource type="FontFile" uid="uid://dm8lskpay2pky" path="res://OldNewspaperTypes.ttf" id="3_ir764"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6thqx"]
+font = ExtResource("3_ir764")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
 
 [node name="WordCard" instance=ExtResource("1_m8yko")]
 script = ExtResource("2_k5nk6")
 
 [node name="CardLabel" type="Label" parent="." index="0"]
-offset_left = -46.0
-offset_top = -11.0
-offset_right = 46.0
-offset_bottom = 12.0
+z_index = 1
+offset_left = -60.0
+offset_top = -13.0
+offset_right = 60.0
+offset_bottom = 13.0
 text = "Word"
+label_settings = SubResource("LabelSettings_6thqx")
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardTex" parent="." index="2"]
+visible = false
+
+[node name="CardCollider" parent="." index="3"]
+visible = false

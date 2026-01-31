@@ -5,7 +5,7 @@ var typeInd
 var numArgs
 var reg
 
-var faceUp;
+var faceUp = false
 var targetPos;
 var targetRot;
 var back_tex

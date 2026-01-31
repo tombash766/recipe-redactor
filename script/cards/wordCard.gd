@@ -1,12 +1,14 @@
 class_name WordCard extends Card
 
-@export var word = "oven"
+@export var word : String
 
 func setCardProps():
 	typeInd = 4
 	numArgs = 1
 	reg = RegEx.new()
 	reg.compile("[a-zA-Z0-9]+", true)
+	if word == null || word == "":
+		word = CardManager.WORDLIST.pick_random()
 	get_child(0).set_text(word)
 
 func distort(args):
