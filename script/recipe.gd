@@ -62,7 +62,7 @@ func _on_caret_changed() -> void:
 		count += len(w) + 1
 		i = i + 1
 	
-	selectedWord = remove_punctuation(w)
+	selectedWord = w.replace(" ", "")
 	selectedInd = i - 1
 	selectedStart = count - len(line[i-1]) + 1
 	selectedEnd = count - 1
@@ -79,7 +79,7 @@ func _on_caret_changed() -> void:
 func replace_words(originals, replacements):
 	var deformation = []
 	for i in range( len(originals) ):
-		deformation.push( {
+		deformation.push_back( {
 			"original" : originals[i],
 			"replacement" : replacements[i]
 		} )

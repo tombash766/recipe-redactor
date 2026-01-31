@@ -26,7 +26,8 @@ func on_timer_expire():
 	
 	await get_tree().create_timer(2).timeout
 	
-	var intermission = load("res://intermission.tscn").instantiate()
-	intermission.encrypted_recipe = get_node("ScrollContainer").get_node("Recipe").text
+	var intermission = load("res://scenes/intermission.tscn").instantiate()
+	intermission.encrypted_recipe = $ScrollContainer.get_node("Recipe").text
+	intermission.deformations = $ScrollContainer.get_node("Recipe").deformations
 	get_tree().get_root().add_child(intermission)
 	queue_free()

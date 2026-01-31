@@ -24,7 +24,7 @@ func _ready() -> void:
 # Callback from SceneTree.
 func _player_connected(_id: int) -> void:
 	# Someone connected, start the game!
-	var encrypt = load("res://encrypt.tscn").instantiate()
+	var encrypt = load("res://scenes/encrypt.tscn").instantiate()
 	# Connect deferred so we can safely erase it from the callback.
 	encrypt.game_finished.connect(_end_game, CONNECT_DEFERRED)
 

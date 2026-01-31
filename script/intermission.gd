@@ -1,6 +1,7 @@
 extends Control
 
 var encrypted_recipe: String
+var deformations
 
 func _ready() -> void:
 	$Timer.start()
@@ -20,6 +21,6 @@ func set_recipe(recipe: String):
 		
 	queue_free()
 	
-	var decrypt = load("res://decrypt.tscn").instantiate()
+	var decrypt = load("res://scenes/decrypt.tscn").instantiate()
 	decrypt.get_node("Recipe").text = recipe
 	get_tree().get_root().add_child(decrypt)
