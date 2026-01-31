@@ -7,8 +7,10 @@ var selectedEnd
 var selectedInd
 
 var deformations = []
+var hl := preload("res://script/word_highlighter.gd").new()
 
 func _ready():
+	syntax_highlighter = hl
 	set_random_recipe()
 	CardManager.recipe = self
 	
@@ -135,5 +137,3 @@ func replace_words(originals, replacements):
 		l[ originals[i]["wordInd"] ] = CardManager.selectedCard.reg.sub( l[ originals[i]["wordInd"] ], replacements[i]["word"] )
 		t[ originals[i]["line"] ] = " ".join(Array(l))
 	set_text( "\n".join(Array(t)) )
-		
-		

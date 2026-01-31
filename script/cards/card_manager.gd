@@ -97,6 +97,29 @@ func submit_word(w):
 			recipe.replace_words(arguments.duplicate(true), selectedCard.distort(arguments))
 			recycleCard(selectedCard)
 			arguments = []
+			$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges.clear()
+		else:
+			$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges.push_back({
+				"line": w.selectedLine,
+				"start": w.wordInd - 1 - len(w.word),
+				"end": w.wordInd - 1,
+				"color": Color.AQUAMARINE
+			})
+		
+		# what follows is a dumb hack to force refresh (without changing caret and scroll)
+		var te = $"/root/Encrypt/ScrollContainer/Recipe"
+		var v = te.scroll_vertical
+		var h = te.scroll_horizontal
+		var c = te.get_caret_column()
+		var l = te.get_caret_line()
+
+		$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.clear_highlighting_cache()
+		te.text = te.text
+
+		te.set_caret_line(l)
+		te.set_caret_column(c)
+		te.scroll_vertical = v
+		te.scroll_horizontal = h
 	
 func wiggle_tween(o):
 	var t = create_tween()
