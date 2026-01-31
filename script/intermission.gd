@@ -23,5 +23,5 @@ func set_recipe(recipe: String, deformations):
 	
 	var decrypt = load("res://scenes/decrypt.tscn").instantiate()
 	decrypt.deformations = deformations
-	decrypt.get_node("Recipe").text = recipe
+	decrypt.get_node("ScrollContainer").get_node("Recipe").text = recipe
 	get_tree().get_root().add_child(decrypt)
