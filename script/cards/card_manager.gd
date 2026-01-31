@@ -100,9 +100,9 @@ func submit_word(w):
 			$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges.clear()
 		else:
 			$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges.push_back({
-				"line": w.selectedLine,
-				"start": w.wordInd - 1 - len(w.word),
-				"end": w.wordInd - 1,
+				"line": w["line"],
+				"start": w["charInd"] - 1 - len(w["word"]),
+				"end": w["charInd"] - 1,
 				"color": Color.AQUAMARINE
 			})
 		

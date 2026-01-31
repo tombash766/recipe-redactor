@@ -121,7 +121,8 @@ func _on_caret_changed() -> void:
 		{
 			"word" : selectedWord,
 			"line" : selectedLine,
-			"wordInd" : selectedInd
+			"wordInd" : selectedInd,
+			"charInd": count
 		}
 	)
 
