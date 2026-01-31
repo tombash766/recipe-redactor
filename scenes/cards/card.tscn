@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://ycndkh5uk54t"]
 
-[ext_resource type="Texture2D" uid="uid://djfjreg65g25" path="res://textures/balaro.png" id="1_jl6rh"]
+[ext_resource type="PackedScene" uid="uid://qetca1j8u7ev" path="res://scenes/cards/back_tex.tscn" id="1_4tkg3"]
 [ext_resource type="Texture2D" uid="uid://c4ie76r05m2q7" path="res://textures/finalscrambled.png" id="2_4tkg3"]
 [ext_resource type="PackedScene" uid="uid://dc45jpsraucbl" path="res://scenes/cards/card_collider.tscn" id="3_1q37b"]
 [ext_resource type="Texture2D" uid="uid://bfxvko6lusuju" path="res://textures/switcheroo.png" id="3_61bms"]
@@ -36,14 +36,13 @@ animations = [{
 
 [node name="Card" type="Node2D"]
 
-[node name="BackTex" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("1_jl6rh")
+[node name="BackTex" parent="." instance=ExtResource("1_4tkg3")]
 
 [node name="CardTex" type="AnimatedSprite2D" parent="."]
 position = Vector2(4.17233e-07, 0)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_efto4")
 frame = 1
 
 [node name="CardCollider" parent="." instance=ExtResource("3_1q37b")]
+scale = Vector2(12, 12)

@@ -61,6 +61,8 @@ func decode_recipe_text(s: String) -> String:
 		"½":"0.5", "⅓":"0.33", "⅔":"0.66",
 		"¼":"0.25", "¾":"0.75", "⅛":"0.125",
 		"⅜":"0.375", "⅝":"0.625", "⅞":"0.875",
+		"1/2":"0.5", "1/3":"0.33", "2/3":"0.66",
+		"1/4":"0.25", "3/4":"0.75", "1/8":"0.125",
 		"&#39;":"'", "&#039;":"", "&nbsp":"\n", "&quot;":"\"", "&amp;":"&",
 		"&frac12;":"0.5", "&frac14;":"0.25", "&frac34;":"0.75",
 		",,":","
@@ -91,11 +93,11 @@ func _on_caret_changed() -> void:
 		i = i + 1
 
 	#selectedWord = remove_punctuation(w)
-	print(CardManager.selectedCard.reg, w)
 	var valid = CardManager.selectedCard.reg.search(w)
 	if valid == null: return
+	
 	selectedWord = valid.get_string()
-	print(selectedWord)
+	
 	selectedInd = i - 1
 	selectedLine = get_caret_line()
 	
@@ -103,7 +105,12 @@ func _on_caret_changed() -> void:
 		for rep in d:
 			if rep["original"]["line"] == selectedLine && rep["original"]["wordInd"] == selectedInd:
 				return
-		
+				
+	if CardManager.selectedCard is SwapCard && CardManager.arguments != []:
+		if CardManager.arguments[0]["word"] == selectedWord:
+			return
+	
+	print("accepted %s" % selectedWord)
 	
 	CardManager.submit_word(
 		{

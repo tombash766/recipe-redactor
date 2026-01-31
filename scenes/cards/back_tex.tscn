@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://qetca1j8u7ev"]
+
+[ext_resource type="Texture2D" uid="uid://djfjreg65g25" path="res://textures/balaro.png" id="1_ibkuk"]
+
+[node name="BackTex" type="Sprite2D"]
+scale = Vector2(3, 3)
+texture = ExtResource("1_ibkuk")

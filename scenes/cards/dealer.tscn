@@ -1,9 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://j4fk85se27ci"]
 
-[ext_resource type="Texture2D" uid="uid://djfjreg65g25" path="res://textures/balaro.png" id="1_jviqm"]
+[ext_resource type="PackedScene" uid="uid://qetca1j8u7ev" path="res://scenes/cards/back_tex.tscn" id="1_jviqm"]
 
 [node name="Dealer" type="Node2D"]
 
-[node name="BackTex" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("1_jviqm")
+[node name="BackTex" parent="." instance=ExtResource("1_jviqm")]
