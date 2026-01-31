@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cduuy23o3u6s7"]
+[gd_scene load_steps=4 format=3 uid="uid://cduuy23o3u6s7"]
 
 [ext_resource type="Script" uid="uid://cjf0lj6ht4126" path="res://script/decrypt.gd" id="1_2ji2i"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ji2i"]
+font_size = 146
+font_color = Color(0.95302767, 0.396101, 0.33779097, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_blc86"]
+font_size = 51
 
 [node name="Decrypt" type="Control"]
 layout_mode = 3
@@ -11,18 +18,58 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2ji2i")
 
-[node name="Recipe" type="TextEdit" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -227.0
-offset_top = -313.5
-offset_right = 227.0
-offset_bottom = 313.5
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 
-[connection signal="caret_changed" from="Recipe" to="." method="_on_caret_changed"]
+[node name="StartCountdown" type="Label" parent="."]
+layout_mode = 0
+offset_left = 396.0
+offset_top = 75.0
+offset_right = 779.0
+offset_bottom = 363.0
+label_settings = SubResource("LabelSettings_2ji2i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RemainingCountdown" type="Label" parent="."]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 107.0
+offset_bottom = 76.0
+text = "5.0"
+label_settings = SubResource("LabelSettings_blc86")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Points" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1053.0
+offset_top = 3.0
+offset_right = 1151.0
+offset_bottom = 73.0
+text = "0"
+label_settings = SubResource("LabelSettings_blc86")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 105.0
+offset_right = 1066.0
+offset_bottom = 422.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
+
+[node name="Recipe" type="TextEdit" parent="ScrollContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "hello there"
+editable = false
+wrap_mode = 1
+caret_multiple = false
+
+[connection signal="caret_changed" from="ScrollContainer/Recipe" to="." method="_on_caret_changed"]

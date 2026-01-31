@@ -27,7 +27,7 @@ func on_timer_expire():
 	await get_tree().create_timer(2).timeout
 	
 	var intermission = load("res://scenes/intermission.tscn").instantiate()
-	intermission.local_recipe = $ScrollContainer.get_node("Recipe").text
-	intermission.local_deformations = $ScrollContainer.get_node("Recipe").deformations
+	intermission.local_recipe = $ScrollContainer/Recipe.text
+	intermission.local_deformations = $ScrollContainer/Recipe.deformations
 	get_tree().get_root().add_child(intermission)
 	queue_free()
