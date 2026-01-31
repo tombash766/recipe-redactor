@@ -40,7 +40,7 @@ var WORDLIST = [
 ]
 
 func findDealer():
-	dealer = get_tree().current_scene.get_node("Dealer")
+	dealer = $"/root/Encrypt/Dealer"
 	
 	
 func _process(_delta: float) -> void:

@@ -1,20 +1,25 @@
 extends SyntaxHighlighter
 
-var ranges := {}  
+var ranges := []
 # line -> Array[{start, end}]
 
+func custom_array_sort(a, b):
+	return a.start < b.start
+
 func _get_line_syntax_highlighting(line: int) -> Dictionary:
-	print("rerender")
-	print(line)
 	var out := {}
+	
+	ranges.sort_custom(custom_array_sort)
 
-	if not ranges.has(line):
-		return out
-
-	for r in ranges[line]:
+	for r in ranges:
+		if r.line != line:
+			continue
 		out[r.start] = {
-			"color": Color.GREEN_YELLOW,
-			"end": r.end
+			"color": r.color,
 		}
+		if not r.end in out:
+			out[r.end] = {
+				"color": Color.WHITE,
+			}
 
 	return out

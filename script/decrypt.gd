@@ -7,22 +7,36 @@ var hl := preload("res://script/word_highlighter.gd").new()
 
 func _ready():
 	$ScrollContainer/Recipe.syntax_highlighter = hl
-	$ScrollContainer.hide()
-	$StartCountdown.text = "3"
-	await get_tree().create_timer(1).timeout
-	$StartCountdown.text = "2"
-	await get_tree().create_timer(1).timeout
-	$StartCountdown.text = "1"
-	await get_tree().create_timer(1).timeout
-	$StartCountdown.text = "GO!"
-	await get_tree().create_timer(1).timeout
-	$StartCountdown.text = ""
-	$ScrollContainer.show()
 	$Timer.start()
 
 func _process(delta: float) -> void:
 	if !$Timer.is_stopped():
 		$RemainingCountdown.text = "%1.1f" % $Timer.time_left
+
+func on_timer_expire():
+	$ScrollContainer.process_mode = Node.PROCESS_MODE_DISABLED
+	$StartCountdown.text = "TIME UP"
+	
+	await get_tree().create_timer(2).timeout
+	
+	if multiplayer.is_server():
+		set_points.rpc(points)
+
+@rpc("any_peer", "call_remote", "reliable")
+func set_points(opponent_points: int):
+	if !multiplayer.is_server():
+		set_points.rpc(points)
+	
+	queue_free()
+	
+	var game_over = load("res://scenes/game_over.tscn").instantiate()
+	game_over.get_node("You").get_node("Score").text = str(points)
+	game_over.get_node("Opponent").get_node("Score").text = str(opponent_points)
+	if points < opponent_points:
+		game_over.get_node("Outcome").get_node("Score").text = "We have lost the battle, but not the war"
+	else:
+		game_over.get_node("Outcome").get_node("Score").text = "VICTORY OVER OUR ENEMIES"
+	get_tree().get_root().add_child(game_over)
 
 func _on_caret_changed() -> void:
 	var col = $ScrollContainer/Recipe.get_caret_column()
@@ -38,29 +52,55 @@ func _on_caret_changed() -> void:
 	
 	if word_index == 0:
 		return
-
+	
 	var selectedWord = w.replace(" ","")
 	var selectedInd = word_index - 1
-
+	
+	for group in found_deformations:
+		for distortion in group:
+			if distortion.original.line == line && distortion.original.wordInd == selectedInd:
+				return
+	
 	var matching_group = null
 	for group in deformations:
 		for distortion in group:
-			if distortion["original"]["wordInd"] == selectedInd:
+			if distortion.original.line == line && distortion.original.wordInd == selectedInd:
 				matching_group = group
-
-	if matching_group in found_deformations:
-		return
-
+	
+	var color
 	if matching_group != null:
-		points += 10
+		points += 20
+		$PointDelta.text = "+20"
+		$PointDelta/AnimationPlayer.stop()
+		$PointDelta/AnimationPlayer.current_animation = "points_add"
 		found_deformations.push_back(matching_group)
 		deformations.erase(matching_group)
-		hl.ranges.push_back({
-			"line": line, 
-			"start_col": count, 
-			"end_col": count + len(w)
-		})
-		$ScrollContainer/Recipe.text = $ScrollContainer/Recipe.text + " "
+		color = Color.GREEN
 	else:
-		points -= 5
+		points -= 10
+		$PointDelta.text = "-10"
+		$PointDelta/AnimationPlayer.stop()
+		$PointDelta/AnimationPlayer.current_animation = "points_sub"
+		color = Color.RED
 	$Points.text = str(points)
+	$ScrollContainer/Recipe.syntax_highlighter.ranges.push_back({
+		"line": line,
+		"start": count - 1 - len(w),
+		"end": count - 1,
+		"color": color
+	})
+	
+	# what follows is a dumb hack to force refresh (without changing caret and scroll)
+	var te = $ScrollContainer/Recipe
+	var v = te.scroll_vertical
+	var h = te.scroll_horizontal
+	var c = te.get_caret_column()
+	var l = te.get_caret_line()
+
+	$ScrollContainer/Recipe.syntax_highlighter.clear_highlighting_cache()
+	te.text = te.text
+
+	te.set_caret_line(l)
+	te.set_caret_column(c)
+	te.scroll_vertical = v
+	te.scroll_horizontal = h
