@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://1i4dkijlvqv5"
+path="res://.godot/imported/NJET MOLOTOV COCKTAIL.mp3-10748d30e16ec3907942ca657d02f551.mp3str"
+
+[deps]
+
+source_file="res://scenes/NJET MOLOTOV COCKTAIL.mp3"
+dest_files=["res://.godot/imported/NJET MOLOTOV COCKTAIL.mp3-10748d30e16ec3907942ca657d02f551.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

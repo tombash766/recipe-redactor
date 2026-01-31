@@ -25,17 +25,15 @@ func _ready() -> void:
 func _player_connected(_id: int) -> void:
 	# Someone connected, start the game!
 	var encrypt = load("res://scenes/encrypt.tscn").instantiate()
-	# Connect deferred so we can safely erase it from the callback.
-	encrypt.game_finished.connect(_end_game, CONNECT_DEFERRED)
 
 	get_tree().get_root().add_child(encrypt)
-	queue_free()
+	hide()
 
 func _player_disconnected(_id: int) -> void:
 	if multiplayer.is_server():
-		_end_game("Client disconnected.")
+		end_game("Client disconnected.")
 	else:
-		_end_game("Server disconnected.")
+		end_game("Server disconnected.")
 
 
 # Callback from SceneTree, only for clients (not server).
@@ -53,11 +51,11 @@ func _connected_fail() -> void:
 
 
 func _server_disconnected() -> void:
-	_end_game("Server disconnected.")
+	end_game("Server disconnected.")
 #endregion
 
 #region Game creation methods
-func _end_game(with_error: String = "") -> void:
+func end_game(with_error: String = "") -> void:
 	if has_node(^"/root/Pong"):
 		# Erase immediately, otherwise network might show
 		# errors (this is why we connected deferred above).

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkyb73ch8c2nq"]
+[gd_scene load_steps=4 format=3 uid="uid://bkyb73ch8c2nq"]
 
 [ext_resource type="Script" uid="uid://cfwyhtty6vhbf" path="res://script/lobby.gd" id="1_ll2xe"]
+[ext_resource type="AudioStream" uid="uid://1i4dkijlvqv5" path="res://scenes/NJET MOLOTOV COCKTAIL.mp3" id="2_5gu6x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ll2xe"]
 font_size = 30
@@ -91,6 +92,9 @@ offset_left = 279.0
 offset_top = 290.0
 offset_right = 393.0
 offset_bottom = 337.0
+
+[node name="Molotov" type="AudioStreamPlayer2D" parent="LobbyPanel"]
+stream = ExtResource("2_5gu6x")
 
 [connection signal="pressed" from="LobbyPanel/HostButton" to="LobbyPanel" method="_on_host_pressed"]
 [connection signal="pressed" from="LobbyPanel/JoinButton" to="LobbyPanel" method="_on_join_pressed"]

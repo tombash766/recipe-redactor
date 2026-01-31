@@ -33,9 +33,9 @@ func set_points(opponent_points: int):
 	game_over.get_node("You").get_node("Score").text = str(points)
 	game_over.get_node("Opponent").get_node("Score").text = str(opponent_points)
 	if points < opponent_points:
-		game_over.get_node("Outcome").get_node("Score").text = "We have lost the battle, but not the war"
+		game_over.get_node("Outcome").text = "We have lost the battle, but not the war"
 	else:
-		game_over.get_node("Outcome").get_node("Score").text = "VICTORY OVER OUR ENEMIES"
+		game_over.get_node("Outcome").text = "VICTORY OVER OUR ENEMIES"
 	get_tree().get_root().add_child(game_over)
 
 func _on_caret_changed() -> void:

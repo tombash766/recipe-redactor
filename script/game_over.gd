@@ -2,8 +2,10 @@ extends Node
 
 
 func on_quit_pressed():
-	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+	$"/root/Lobby/LobbyPanel".end_game()
+	get_tree().quit()
 
 func on_lobby_pressed():
-	get_parent().get_node("Lobby").show()
+	$"/root/Lobby/LobbyPanel".end_game()
+	$"/root/Lobby/LobbyPanel".show()
 	queue_free()
