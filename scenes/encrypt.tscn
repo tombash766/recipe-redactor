@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cgpjq70xa3ojm" path="res://script/recipe.gd" id="2_2dchv"]
 [ext_resource type="FontFile" uid="uid://dm8lskpay2pky" path="res://OldNewspaperTypes.ttf" id="3_80t8n"]
 [ext_resource type="PackedScene" uid="uid://u26mkss0obsl" path="res://scenes/cards/hand.tscn" id="3_k5kmn"]
-[ext_resource type="PackedScene" path="res://scenes/cards/dealer.tscn" id="4_54i3o"]
+[ext_resource type="PackedScene" uid="uid://j4fk85se27ci" path="res://scenes/cards/dealer.tscn" id="4_54i3o"]
 
 [sub_resource type="Theme" id="Theme_5t5pj"]
 default_font = ExtResource("3_80t8n")
@@ -42,10 +42,12 @@ clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_default_cursor_shape = 2
 theme = SubResource("Theme_5t5pj")
 theme_override_colors/font_readonly_color = Color(0.9007046, 0.90070456, 0.90070456, 1)
 text = "hello there"
 editable = false
+selecting_enabled = false
 wrap_mode = 1
 caret_multiple = false
 script = ExtResource("2_2dchv")

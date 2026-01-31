@@ -248,10 +248,12 @@ clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
 text = "hello there"
 editable = false
+selecting_enabled = false
 wrap_mode = 1
 caret_multiple = false
 
