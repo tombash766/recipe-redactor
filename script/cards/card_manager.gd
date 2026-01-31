@@ -2,14 +2,16 @@ extends Node2D
 
 var cardSelected = false;
 var selectedCard = null;
+var cardContainer = null;
 
 var arguments = []
 var recipe
 var originalContainer
 var cardPresets = [
 	preload("res://scenes/cards/shuffle_card.tscn"),
-	preload("res://scenes/cards/swap_card.tscn")
-	
+	preload("res://scenes/cards/swap_card.tscn"),
+	preload("res://scenes/cards/mult_card.tscn"),
+	preload("res://scenes/cards/word_card.tscn")
 	]
 
 var ROT_SPEED = 6
@@ -26,6 +28,7 @@ func _process(_delta: float) -> void:
 func selectCard(c) -> void:
 	cardSelected = true;
 	selectedCard = c;
+	cardContainer = c.get_parent();
 	arguments = []
 	if selectedCard is Card:
 		wiggle_tween(selectedCard)
@@ -35,6 +38,11 @@ func deselect() -> void:
 	if selectedCard is Card:
 		selectedCard.targetPos = selectedCard.targetPos + Vector2(0, 100)
 	cardSelected = false;
+	
+func get_random_card():
+	var c = cardPresets.pick_random().instantiate()
+	c.faceUp = false
+	return c
 	
 func get_full_deck():
 	var d = []
@@ -49,15 +57,13 @@ func deal_delay(t : float = DEAL_DELAY) -> void:
 	return
 	
 func submit_word(w):
-	if cardSelected:
-		print(selectedCard.reg.search(w["word"]))
 	if cardSelected && selectedCard.reg.search(w["word"]) != null:
-		# don't allow two distortions on one word
 		arguments.push_back(w)
 		if len(arguments) == selectedCard.numArgs:
-			recipe.replace_words(arguments, selectedCard.distort(arguments))
+			recipe.replace_words(arguments.duplicate(true), selectedCard.distort(arguments))
 			deselect()
-			selectedCard.queue_free()
+			cardContainer.delete_card(selectedCard)
+			cardContainer.add_card(get_random_card())
 			arguments = []
 	
 func wiggle_tween(o):

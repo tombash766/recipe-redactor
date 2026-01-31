@@ -16,8 +16,13 @@ func add_card(c : Card) -> void:
 	c.set_facing(true)
 	distribute_cards()
 
+func delete_card(c : Card):
+	cards.erase(c)
+	remove_child(c)
+	c.queue_free()
+	distribute_cards()
+	
 func get_card() -> Card:
-	print("getting card")
 	return cards.pop_back()
 	
 func distribute_cards():

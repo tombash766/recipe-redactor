@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://mve14du7hnyp"]
+
+[ext_resource type="PackedScene" uid="uid://ycndkh5uk54t" path="res://scenes/cards/card.tscn" id="1_m8yko"]
+[ext_resource type="Script" uid="uid://uxvuevlk3sl" path="res://script/cards/wordCard.gd" id="2_k5nk6"]
+
+[node name="WordCard" instance=ExtResource("1_m8yko")]
+script = ExtResource("2_k5nk6")
+
+[node name="CardLabel" type="Label" parent="." index="0"]
+offset_left = -46.0
+offset_top = -11.0
+offset_right = 46.0
+offset_bottom = 12.0
+text = "Word"
+horizontal_alignment = 1
