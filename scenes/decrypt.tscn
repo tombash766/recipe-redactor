@@ -24,3 +24,5 @@ offset_right = 227.0
 offset_bottom = 313.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[connection signal="caret_changed" from="Recipe" to="." method="_on_caret_changed"]

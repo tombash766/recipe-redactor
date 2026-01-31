@@ -1,6 +1,6 @@
 extends Control
 
-var distortion_groups
+var deformations
 var points
 
 func _on_caret_changed() -> void:
@@ -18,7 +18,8 @@ func _on_caret_changed() -> void:
 	var selectedInd = i - 1
 	
 	var matching_group = null
-	for group in distortion_groups:
+	print(deformations)
+	for group in deformations:
 		for distortion in group:
 			print(distortion)
 			if distortion["original"]["wordInd"] == selectedInd:
