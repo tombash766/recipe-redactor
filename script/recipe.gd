@@ -47,10 +47,19 @@ func _on_request_completed(
 
 func remove_punctuation(s):
 	for c in PUNCTUATION:
-		s.replace(c,"")
-	
+		s = s.replace(c,"")
+	return s
+
+func replace_preserve_punct(s,to_word):
+	var re := RegEx.new()
+	re.compile("^([\\W]*)(\\w+)([\\W]*)$")
+	var m := re.search(s)
+	if m == null:
+		return s
+	return m.get_string(1) + to_word + m.get_string(3)
+
 func _on_caret_changed() -> void:
-	
+	if !CardManager.cardSelected: return
 	var col = get_caret_column()
 	var line = get_text().split("\n")[get_caret_line()].split(" ")
 	var i = 0
@@ -61,12 +70,21 @@ func _on_caret_changed() -> void:
 		w = line[i]
 		count += len(w) + 1
 		i = i + 1
-	
-	selectedWord = w.replace(" ", "")
+
+	#selectedWord = remove_punctuation(w)
+	print(CardManager.selectedCard.reg, w)
+	var valid = CardManager.selectedCard.reg.search(w)
+	if valid == null: return
+	selectedWord = valid.get_string()
+	print(selectedWord)
 	selectedInd = i - 1
-	selectedStart = count - len(line[i-1]) + 1
-	selectedEnd = count - 1
 	selectedLine = get_caret_line()
+	
+	for d in deformations:
+		for rep in d:
+			if rep["original"]["line"] == selectedLine && rep["original"]["wordInd"] == selectedInd:
+				return
+		
 	
 	CardManager.submit_word(
 		{
@@ -85,9 +103,10 @@ func replace_words(originals, replacements):
 		} )
 	deformations.push_back( deformation )
 	var t = get_text().split("\n")
+	# makes sure CardManager.selectedCard is not freed or changed
 	for i in len(originals):
 		var l = t[ originals[i]["line"] ].split(" ")
-		l[ originals[i]["wordInd"] ] = replacements[i]["word"]
+		l[ originals[i]["wordInd"] ] = CardManager.selectedCard.reg.sub( l[ originals[i]["wordInd"] ], replacements[i]["word"] )
 		t[ originals[i]["line"] ] = " ".join(Array(l))
 	set_text( "\n".join(Array(t)) )
 		
