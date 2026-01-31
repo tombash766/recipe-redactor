@@ -25,12 +25,15 @@ func apply(args):
 func _ready() -> void:
 	setCardProps()
 	tex = find_child("CardTex");
-	tex.set_frame(typeInd);
+	if tex is AnimatedSprite2D:
+		tex.set_frame(typeInd);
 	back_tex = find_child("BackTex")
 	back_tex.set_visible(!faceUp)
 	tex.set_visible(faceUp)
 	if targetPos == null:
 		targetPos = get_position()
+	if targetRot == null:
+		targetRot = 0
 
 func _process(delta: float) -> void:
 	var p = get_position()
@@ -38,7 +41,7 @@ func _process(delta: float) -> void:
 	set_position( lerp(p, p + posDiff, 
 		delta * CardManager.FOLLOW_SPEED)
 	)
-	set_rotation( lerp(get_rotation(), 
+	set_rotation( lerp( get_rotation() - targetRot , 
 		posDiff.x * CardManager.ROT_AMOUNT,
 		delta * CardManager.ROT_SPEED
 	) )

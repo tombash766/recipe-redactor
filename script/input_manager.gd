@@ -21,7 +21,13 @@ func get_obj_under_mouse() -> Node2D:
 	query.collide_with_areas = true
 	query.collision_mask = 1
 	var result = space_state.intersect_point(query)
+	result.sort_custom(sort_by_z)
 	if result.size() > 0:
-		return result[0].collider.get_parent()
+		return result[-1].collider.get_parent()
 	else:
 		return null
+		
+func sort_by_z(a,b):
+	if a.collider.z_index != b.collider.z_index:
+		return a.collider.z_index - b.collider.z_index
+	return b.collider.global_position.y - a.collider.global_position.y

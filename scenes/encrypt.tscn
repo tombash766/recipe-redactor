@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://r23xhgeqne0q"]
+[gd_scene load_steps=9 format=3 uid="uid://r23xhgeqne0q"]
 
 [ext_resource type="Script" uid="uid://hrrdpfw3mtih" path="res://script/encrypt.gd" id="1_dh3yh"]
 [ext_resource type="Script" uid="uid://cgpjq70xa3ojm" path="res://script/recipe.gd" id="2_2dchv"]
+[ext_resource type="FontFile" uid="uid://dm8lskpay2pky" path="res://OldNewspaperTypes.ttf" id="3_80t8n"]
 [ext_resource type="PackedScene" uid="uid://u26mkss0obsl" path="res://scenes/cards/hand.tscn" id="3_k5kmn"]
+[ext_resource type="PackedScene" uid="uid://j4fk85se27ci" path="res://scenes/cards/dealer.tscn" id="4_54i3o"]
+
+[sub_resource type="Theme" id="Theme_5t5pj"]
+default_font = ExtResource("3_80t8n")
+default_font_size = 20
 
 [sub_resource type="LabelSettings" id="LabelSettings_k5kmn"]
 font_size = 146
@@ -16,7 +22,7 @@ script = ExtResource("1_dh3yh")
 
 [node name="Hand" parent="." instance=ExtResource("3_k5kmn")]
 position = Vector2(581, 621)
-width = 400
+width = 300
 harshFacing = true
 blockAdd = false
 blockGet = false
@@ -33,6 +39,8 @@ clip_contents = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = SubResource("Theme_5t5pj")
+theme_override_colors/font_readonly_color = Color(0.9007046, 0.90070456, 0.90070456, 1)
 text = "hello there"
 editable = false
 wrap_mode = 1
@@ -40,7 +48,7 @@ caret_multiple = false
 script = ExtResource("2_2dchv")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 1000.0
 one_shot = true
 
 [node name="StartCountdown" type="Label" parent="."]
@@ -61,6 +69,9 @@ text = "5.0"
 label_settings = SubResource("LabelSettings_2dchv")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Dealer" parent="." instance=ExtResource("4_54i3o")]
+position = Vector2(122, 537)
 
 [connection signal="caret_changed" from="ScrollContainer/Recipe" to="ScrollContainer/Recipe" method="_on_caret_changed"]
 [connection signal="timeout" from="Timer" to="." method="on_timer_expire"]

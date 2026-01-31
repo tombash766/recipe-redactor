@@ -4,6 +4,9 @@ var cardSelected = false;
 var selectedCard = null;
 var cardContainer = null;
 
+var modifiers = []
+var deformations = []
+
 var arguments = []
 var recipe
 var originalContainer
@@ -11,7 +14,8 @@ var cardPresets = [
 	preload("res://scenes/cards/shuffle_card.tscn"),
 	preload("res://scenes/cards/swap_card.tscn"),
 	preload("res://scenes/cards/mult_card.tscn"),
-	preload("res://scenes/cards/word_card.tscn")
+	preload("res://scenes/cards/word_card.tscn"),
+	preload("res://scenes/cards/ghost_card.tscn")
 	]
 var dealer
 
@@ -47,9 +51,17 @@ func selectCard(c) -> void:
 	selectedCard = c;
 	cardContainer = c.get_parent();
 	arguments = []
+	if selectedCard is ModCard:
+		modifiers.push_back( selectedCard.get_mod() )
+		recycleCard(selectedCard)
 	if selectedCard is Card:
 		wiggle_tween(selectedCard)
 		selectedCard.targetPos = selectedCard.targetPos + Vector2(0, -100)
+	
+func recycleCard(c):
+	deselect()
+	cardContainer.delete_card(c)
+	cardContainer.add_card(get_random_card())
 	
 func deselect() -> void:
 	if selectedCard is Card:
@@ -58,19 +70,18 @@ func deselect() -> void:
 	
 func get_random_card():
 	if dealer == null : findDealer()
-	var c = cardPresets.pick_random().instantiate()
+	var ind = randi() % len(cardPresets)
+	var c = cardPresets[ind].instantiate()
+	if c is ModCard:
+		cardPresets.remove_at(ind)
 	c.set_position( dealer.get_position() )
 	c.faceUp = false
 	return c
 	
 func get_full_deck():
 	var d = []
-	if dealer == null: findDealer()
-	for i in range( len(cardPresets) ):
-		var c = cardPresets[i].instantiate()
-		c.faceUp = false
-		c.set_position( dealer.get_position() )
-		d.push_back(c)
+	for i in range(5):
+		d.push_back( get_random_card() )
 	return d
 	
 func deal_delay(t : float = DEAL_DELAY) -> void:
@@ -82,9 +93,7 @@ func submit_word(w):
 		arguments.push_back(w)
 		if len(arguments) == selectedCard.numArgs:
 			recipe.replace_words(arguments.duplicate(true), selectedCard.distort(arguments))
-			deselect()
-			cardContainer.delete_card(selectedCard)
-			cardContainer.add_card(get_random_card())
+			recycleCard(selectedCard)
 			arguments = []
 	
 func wiggle_tween(o):
