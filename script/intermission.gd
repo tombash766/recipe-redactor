@@ -2,10 +2,11 @@ extends Control
 
 var local_recipe: String
 var local_deformations
+var points
 
 func _ready() -> void:
 	$Timer.start()
-
+	
 func on_timer_expire():
 	if multiplayer.is_server():
 		set_recipe.rpc(local_recipe, local_deformations)
@@ -23,5 +24,7 @@ func set_recipe(recipe: String, deformations):
 	
 	var decrypt = load("res://scenes/decrypt.tscn").instantiate()
 	decrypt.deformations = deformations
+	decrypt.points = points
+	decrypt.get_node("Points").text = str(points)
 	decrypt.get_node("ScrollContainer").get_node("Recipe").text = recipe
 	get_tree().get_root().add_child(decrypt)

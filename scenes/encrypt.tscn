@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://r23xhgeqne0q"]
+[gd_scene load_steps=10 format=3 uid="uid://r23xhgeqne0q"]
 
 [ext_resource type="Script" uid="uid://hrrdpfw3mtih" path="res://script/encrypt.gd" id="1_dh3yh"]
 [ext_resource type="Script" uid="uid://cgpjq70xa3ojm" path="res://script/recipe.gd" id="2_2dchv"]
@@ -16,6 +16,9 @@ font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2dchv"]
 font_size = 51
+
+[sub_resource type="LabelSettings" id="LabelSettings_80t8n"]
+font_size = 56
 
 [node name="Encrypt" type="Node2D"]
 script = ExtResource("1_dh3yh")
@@ -48,7 +51,7 @@ caret_multiple = false
 script = ExtResource("2_2dchv")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 38.0
 one_shot = true
 
 [node name="StartCountdown" type="Label" parent="."]
@@ -65,13 +68,23 @@ offset_left = 9.0
 offset_top = 6.0
 offset_right = 107.0
 offset_bottom = 76.0
-text = "5.0"
+text = "38.0"
 label_settings = SubResource("LabelSettings_2dchv")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Dealer" parent="." instance=ExtResource("4_54i3o")]
 position = Vector2(122, 537)
+
+[node name="Points" type="Label" parent="."]
+offset_left = 1053.0
+offset_top = 3.0
+offset_right = 1151.0
+offset_bottom = 73.0
+text = "0"
+label_settings = SubResource("LabelSettings_80t8n")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="caret_changed" from="ScrollContainer/Recipe" to="ScrollContainer/Recipe" method="_on_caret_changed"]
 [connection signal="timeout" from="Timer" to="." method="on_timer_expire"]

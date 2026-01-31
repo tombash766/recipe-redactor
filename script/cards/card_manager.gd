@@ -92,6 +92,8 @@ func submit_word(w):
 	if cardSelected && selectedCard.reg.search(w["word"]) != null:
 		arguments.push_back(w)
 		if len(arguments) == selectedCard.numArgs:
+			$"/root/Encrypt".points += 10
+			$"/root/Encrypt/Points".text = str($"/root/Encrypt".points)
 			recipe.replace_words(arguments.duplicate(true), selectedCard.distort(arguments))
 			recycleCard(selectedCard)
 			arguments = []

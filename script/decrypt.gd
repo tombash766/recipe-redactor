@@ -2,7 +2,7 @@ extends Control
 
 var deformations
 var found_deformations = []
-var points = 0
+var points
 var hl := preload("res://script/word_highlighter.gd").new()
 
 func _ready():

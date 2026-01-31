@@ -2,6 +2,8 @@ extends Node2D
 
 signal game_finished()
 
+var points = 10
+
 func _ready():
 	$ScrollContainer.hide()
 	$StartCountdown.text = "3"
@@ -24,10 +26,11 @@ func on_timer_expire():
 	$ScrollContainer.process_mode = Node.PROCESS_MODE_DISABLED
 	$StartCountdown.text = "TIME UP"
 	
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(4).timeout
 	
 	var intermission = load("res://scenes/intermission.tscn").instantiate()
 	intermission.local_recipe = $ScrollContainer/Recipe.text
 	intermission.local_deformations = $ScrollContainer/Recipe.deformations
+	intermission.points = points
 	get_tree().get_root().add_child(intermission)
 	queue_free()

@@ -25,7 +25,7 @@ func _ready() -> void:
 func _player_connected(_id: int) -> void:
 	# Someone connected, start the game!
 	var encrypt = load("res://scenes/encrypt.tscn").instantiate()
-
+	$Molotov.play()
 	get_tree().get_root().add_child(encrypt)
 	hide()
 
