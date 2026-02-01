@@ -10,6 +10,9 @@ const DEFAULT_PORT = 8910
 #@onready var port_forward_label: Label = $PortForward
 #@onready var find_public_ip_button: LinkButton = $FindPublicIP
 
+var was_host_last_time = false
+var previous_address = null
+
 var peer: ENetMultiplayerPeer
 
 func _ready() -> void:
@@ -93,6 +96,7 @@ func _on_host_pressed() -> void:
 	host_button.set_disabled(true)
 	join_button.set_disabled(true)
 	_set_status("Waiting for player...", true)
+	was_host_last_time = true
 	get_window().title = ProjectSettings.get_setting("application/config/name") + ": Server"
 
 	# Only show hosting instructions when relevant.
@@ -110,9 +114,19 @@ func _on_join_pressed() -> void:
 	peer.create_client(ip, DEFAULT_PORT)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
+	
+	was_host_last_time = false
+	previous_address = ip
 
 	_set_status("Connecting...", true)
 	get_window().title = ProjectSettings.get_setting("application/config/name") + ": Client"
+
+func rejoin() -> void:
+	if was_host_last_time:
+		_on_host_pressed()
+	else:
+		$AddressLabel.text = previous_address
+		_on_join_pressed()
 #endregion
 
 func _on_find_public_ip_pressed() -> void:

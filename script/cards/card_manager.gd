@@ -16,7 +16,7 @@ var cardPresets = [
 	preload("res://scenes/cards/mult_card.tscn"),
 	preload("res://scenes/cards/word_card.tscn"),
 	preload("res://scenes/cards/ghost_card.tscn")
-	]
+]
 var dealer
 
 var ROT_SPEED = 6
@@ -173,3 +173,13 @@ func flip_tween(o, f : Callable):
 	t.tween_property(o, "scale:x", 0, 0.1).set_trans(Tween.TRANS_CIRC)
 	t.tween_callback( f )
 	t.tween_property(o, "scale:x", 1, 0.1).set_trans(Tween.TRANS_CIRC)
+
+func reset():
+	cardSelected = false;
+	selectedCard = null;
+	cardContainer = null;
+
+	modifiers = []
+	deformations = []
+
+	arguments = []

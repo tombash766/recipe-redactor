@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://crti0q4ewjv8o"]
+[gd_scene load_steps=8 format=3 uid="uid://crti0q4ewjv8o"]
 
 [ext_resource type="Script" uid="uid://clmcnag1ho0eg" path="res://script/game_over.gd" id="1_xeevv"]
 
@@ -19,6 +19,9 @@ font_size = 76
 [sub_resource type="LabelSettings" id="LabelSettings_8m3kf"]
 font_size = 46
 font_color = Color(1, 0, 0.10980392, 1)
+
+[sub_resource type="Theme" id="Theme_xeevv"]
+default_font_size = 24
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -126,5 +129,15 @@ offset_right = 566.0
 offset_bottom = 606.0
 text = "Lobby"
 
+[node name="PlayAgain" type="Button" parent="."]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 477.0
+offset_right = 654.0
+offset_bottom = 552.0
+theme = SubResource("Theme_xeevv")
+text = "PLAY AGAIN"
+
 [connection signal="pressed" from="Quit" to="." method="on_quit_pressed"]
 [connection signal="pressed" from="Lobby" to="." method="on_lobby_pressed"]
+[connection signal="pressed" from="PlayAgain" to="." method="on_play_again_pressed"]
