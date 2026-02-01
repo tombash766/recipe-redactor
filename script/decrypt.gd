@@ -2,6 +2,7 @@ extends Control
 
 var deformations
 var found_deformations = []
+var checked_locations = []
 var points
 var hl := preload("res://script/word_highlighter.gd").new()
 var first = true # hack
@@ -43,6 +44,7 @@ func set_points(opponent_points: int):
 
 func add_points(n):
 	points += n
+	$Points.text = str(points)
 	$PointDelta.add_points_anim(n)
 	
 func _on_caret_changed() -> void:
@@ -71,10 +73,17 @@ func _on_caret_changed() -> void:
 	# ignore punctuation because fuck it
 	var re := RegEx.new()
 	re.compile("[\\+,\\.\\(\\)\\[\\]\\!_\\&\\'\\\"\\/]")
-	while re.search(line[count]) != null:
+	while count > 0 && re.search(line[count]) != null:
 		count -= 1
 	
 	count += 1
+	i -= 1
+	
+	var location = { "line": line, "count": count}
+	if location in checked_locations:
+		return
+	
+	checked_locations.push_back(location)
 	
 	for group in found_deformations:
 		for distortion in group:
@@ -84,28 +93,51 @@ func _on_caret_changed() -> void:
 	var matching_group = null
 	for group in deformations:
 		for distortion in group:
-			print("fuck")
-			print(distortion.original.charInd)
-			print(count)
-			if distortion.original.line == line_num && distortion.distorted.charInd == count:
+			if distortion.original.line == line_num && distortion.original.wordInd == i:
 				matching_group = group
 	
-	var color
 	if matching_group != null:
 		add_points(20)
 		found_deformations.push_back(matching_group)
 		deformations.erase(matching_group)
-		color = Color.GREEN
+		for distortion in matching_group:
+			# cloned from above i'm sorry
+			var line_num_2 = $ScrollContainer/Recipe.get_caret_line()
+			var line_2 = $ScrollContainer/Recipe.get_text().split("\n")[line_num_2]
+			var words_2 = line.split(" ")
+			var i_2 = 0
+			var count_2 = 0
+			var w_2 = ""
+			
+			for k in distortion.replacement.wordInd+1:
+				if i_2 >= len(words_2):
+					break # just in case because I had an error but cant reproduce
+				w_2 = words_2[i_2]
+				count_2 += len(w_2) + 1
+				i_2 += 1
+			count_2 -= 2
+			count_2 = max(0, count_2)
+			
+			# ignore punctuation because fuck it
+			while count_2 > 0 && re.search(line_2[count_2]) != null:
+				count_2 -= 1
+			
+			count_2 += 1
+			i_2 -= 1
+			$ScrollContainer/Recipe.syntax_highlighter.ranges.push_back({
+				"line": line_num_2,
+				"start": count_2 - len(w_2),
+				"end": count_2,
+				"color": Color.GREEN
+			})
 	else:
 		add_points(-10)
-		color = Color.RED
-	$Points.text = str(points)
-	$ScrollContainer/Recipe.syntax_highlighter.ranges.push_back({
-		"line": line_num,
-		"start": count - 1 - len(w),
-		"end": count - 1,
-		"color": color
-	})
+		$ScrollContainer/Recipe.syntax_highlighter.ranges.push_back({
+			"line": line_num,
+			"start": count - len(w),
+			"end": count,
+			"color": Color.RED
+		})
 	
 	# what follows is a dumb hack to force refresh (without changing caret and scroll)
 	var te = $ScrollContainer/Recipe

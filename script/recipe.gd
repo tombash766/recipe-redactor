@@ -105,16 +105,15 @@ func _on_caret_changed() -> void:
 	# ignore punctuation because fuck it
 	var re := RegEx.new()
 	re.compile("[\\+,\\.\\(\\)\\[\\]\\!_\\&\\'\\\"\\/]")
-	while re.search(line[count]) != null:
+	while count > 0 && re.search(line[count]) != null:
 		count -= 1
 	
 	count += 1
-
+	
 	var valid = CardManager.selectedCard.reg.search(w)
 	if valid == null:
 		CardManager.update_helper("invalid, card expects %s" % CardManager.selectedCard.regDesc, true)
 		return
-	
 	
 	selectedWord = valid.get_string()
 	selectedInd = i - 1
