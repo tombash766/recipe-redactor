@@ -105,9 +105,9 @@ func _on_caret_changed() -> void:
 	# ignore punctuation because fuck it
 	var re := RegEx.new()
 	re.compile("[\\+,\\.\\(\\)\\[\\]\\!_\\&\\'\\\"\\/]")
+	if line == "": return
 	while re.search(line[count]) != null:
 		count -= 1
-	
 	count += 1
 
 	var valid = CardManager.selectedCard.reg.search(w)

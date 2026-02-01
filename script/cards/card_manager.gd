@@ -17,7 +17,8 @@ var cardPresets = [
 	preload("res://scenes/cards/swap_card.tscn"),
 	preload("res://scenes/cards/mult_card.tscn"),
 	preload("res://scenes/cards/word_card.tscn"),
-	preload("res://scenes/cards/ghost_card.tscn")
+	preload("res://scenes/cards/ghost_card.tscn"),
+	preload("res://scenes/time_card.tscn")
 ]
 
 var ROT_SPEED = 6
@@ -56,7 +57,7 @@ func selectCard(c) -> void:
 	if selectedCard is ModCard:
 		modifiers.push_back( selectedCard.get_mod() )
 		recycleCard(selectedCard)
-	if selectedCard is Card:
+	elif selectedCard is Card:
 		wiggle_tween(selectedCard)
 		selectedCard.targetPos = selectedCard.targetPos + Vector2(0, -100)
 	update_helper()
@@ -65,8 +66,7 @@ func recycleCard(c):
 	deselect()
 	cardContainer.remove_card(c)
 	cardContainer.add_sibling(c)
-	c.targetPos = get_global_mouse_position()
-	card_use_tween(c)
+	c.use_card( get_global_mouse_position() )
 	cardContainer.add_card(get_random_card())
 	
 func deselect() -> void:
@@ -196,10 +196,10 @@ func err_tween(o):
 	t.tween_property(o, "position", start + Vector2(0,  8), 0.05)
 	t.tween_property(o, "position", start, 0.2).set_trans(Tween.TRANS_ELASTIC)
 	
-func card_use_tween(o):
+func card_use_tween(o, p):
 	var t = create_tween()
-	t.tween_property(o, "scale", Vector2(0.7, 0.7), 0.2)
-	t.tween_property(o, "scale", Vector2(0, 0), 0.15).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	t.tween_property(o, "position", p, 0.2).set_ease(Tween.EASE_OUT)
+	t.tween_property(o, "scale", Vector2(0, 0), 0.3).set_trans(Tween.TRANS_CUBIC)
 	t.finished.connect(o.queue_free)
 	
 func update_helper(s = null, err = false):
@@ -210,7 +210,7 @@ func update_helper(s = null, err = false):
 		var n = selectedCard.numArgs - len(arguments)
 		msg = "select %s more word" % n + ("s" if n != 1 else "")
 	else:
-		msg = "select a word"
+		msg = "select a card"
 	if err:
 		helper.set_text("[color=#FF0000]%s[/color]" % msg)
 		err_tween(helper)

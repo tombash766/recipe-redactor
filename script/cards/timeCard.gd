@@ -1,7 +1,7 @@
 class_name TimeCard extends ModCard
 
 func setCardProps():
-	typeInd = 5
+	typeInd = 6
 	desc = "Gives your opponent less time to decrypt"
 	
 func get_mod():

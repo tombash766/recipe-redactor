@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://u26mkss0obsl" path="res://scenes/cards/hand.tscn" id="3_k5kmn"]
 [ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="4_5t5pj"]
 [ext_resource type="PackedScene" uid="uid://j4fk85se27ci" path="res://scenes/cards/dealer.tscn" id="4_54i3o"]
-[ext_resource type="PackedScene" uid="uid://b0iku48dm8hs" path="res://scenes/remaining_countdown.tscn" id="6_7mwiu"]
-[ext_resource type="PackedScene" uid="uid://bm5j78ysqyu6j" path="res://scenes/points.tscn" id="7_sm6fn"]
-[ext_resource type="PackedScene" uid="uid://ewhu2u814dv3" path="res://scenes/point_delta.tscn" id="8_7mwiu"]
+[ext_resource type="PackedScene" uid="uid://2wefs1r3qmr7" path="res://scenes/remaining_countdown.tscn" id="6_7mwiu"]
+[ext_resource type="PackedScene" path="res://scenes/points.tscn" id="7_sm6fn"]
+[ext_resource type="PackedScene" path="res://scenes/point_delta.tscn" id="8_7mwiu"]
 
 [sub_resource type="Theme" id="Theme_cxcll"]
 default_font = ExtResource("3_80t8n")
@@ -54,15 +54,21 @@ wait_time = 20.0
 one_shot = true
 
 [node name="StartCountdown" type="Label" parent="."]
-offset_left = 396.0
-offset_top = 75.0
-offset_right = 779.0
-offset_bottom = 363.0
+z_index = 100
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1151.0
+offset_bottom = 646.0
+theme = ExtResource("4_5t5pj")
 label_settings = SubResource("LabelSettings_k5kmn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="RemainingCountdown" parent="." instance=ExtResource("6_7mwiu")]
+offset_left = 9.0
+offset_top = 370.0
+offset_right = 109.0
+offset_bottom = 440.0
 
 [node name="Dealer" parent="." instance=ExtResource("4_54i3o")]
 position = Vector2(125, 583)
@@ -83,12 +89,14 @@ offset_left = 1045.0
 offset_top = 366.0
 offset_right = 1143.0
 offset_bottom = 436.0
+theme = ExtResource("4_5t5pj")
 
 [node name="PointDelta" parent="." instance=ExtResource("8_7mwiu")]
 offset_left = 511.0
 offset_top = 161.0
 offset_right = 647.0
 offset_bottom = 319.0
+theme = ExtResource("4_5t5pj")
 
 [connection signal="caret_changed" from="ScrollContainer/Recipe" to="ScrollContainer/Recipe" method="_on_caret_changed"]
 [connection signal="timeout" from="Timer" to="." method="on_timer_expire"]

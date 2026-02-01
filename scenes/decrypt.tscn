@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cjf0lj6ht4126" path="res://script/decrypt.gd" id="1_2ji2i"]
 [ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="2_blc86"]
-[ext_resource type="PackedScene" uid="uid://ewhu2u814dv3" path="res://scenes/point_delta.tscn" id="2_dqury"]
-[ext_resource type="PackedScene" uid="uid://bm5j78ysqyu6j" path="res://scenes/points.tscn" id="3_y6uwi"]
-[ext_resource type="PackedScene" uid="uid://b0iku48dm8hs" path="res://scenes/remaining_countdown.tscn" id="4_1glcx"]
+[ext_resource type="PackedScene" path="res://scenes/point_delta.tscn" id="2_dqury"]
+[ext_resource type="PackedScene" path="res://scenes/points.tscn" id="3_y6uwi"]
+[ext_resource type="PackedScene" uid="uid://2wefs1r3qmr7" path="res://scenes/remaining_countdown.tscn" id="4_1glcx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dqury"]
 font_size = 146
@@ -17,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_blc86")
 script = ExtResource("1_2ji2i")
 
 [node name="PointDelta" parent="." instance=ExtResource("2_dqury")]
@@ -39,9 +40,17 @@ one_shot = true
 
 [node name="Points" parent="." instance=ExtResource("3_y6uwi")]
 layout_mode = 0
+offset_left = 18.0
+offset_top = 96.0
+offset_right = 116.0
+offset_bottom = 166.0
 
 [node name="RemainingCountdown" parent="." instance=ExtResource("4_1glcx")]
 layout_mode = 0
+offset_left = 17.0
+offset_top = 13.0
+offset_right = 118.0
+offset_bottom = 83.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
