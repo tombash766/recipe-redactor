@@ -84,15 +84,28 @@ func replace_preserve_punct(s,to_word):
 func _on_caret_changed() -> void:
 	if !CardManager.cardSelected: return
 	var col = get_caret_column()
-	var line = get_text().split("\n")[get_caret_line()].split(" ")
+	var line = get_text().split("\n")[get_caret_line()]
+	var words = line.split(" ")
 	var i = 0
 	var count = 0
 	var w = ""
 	
 	while count <= col:
-		w = line[i]
+		w = words[i]
 		count += len(w) + 1
 		i = i + 1
+	count -= 2
+	
+	# ignore punctuation because fuck it
+	var re := RegEx.new()
+	re.compile("[\\+,\\.\\(\\)\\[\\]\\-_\\&\\'\\\"\\/]")
+	print(line[count])
+	print(line)
+	while re.search(line[count]) != null:
+		print("boop")
+		count -= 1
+	
+	count += 1
 
 	#selectedWord = remove_punctuation(w)
 	var valid = CardManager.selectedCard.reg.search(w)

@@ -89,38 +89,80 @@ func deal_delay(t : float = DEAL_DELAY) -> void:
 	return
 	
 func submit_word(w):
-	if cardSelected && selectedCard.reg.search(w["word"]) != null:
-		arguments.push_back(w)
-		if len(arguments) == selectedCard.numArgs:
-			$"/root/Encrypt".points += 10
-			$"/root/Encrypt/Points".text = str($"/root/Encrypt".points)
-			recipe.replace_words(arguments.duplicate(true), selectedCard.distort(arguments))
-			recycleCard(selectedCard)
-			arguments = []
-			$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges.clear()
-		else:
-			$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges.push_back({
-				"line": w["line"],
-				"start": w["charInd"] - 1 - len(w["word"]),
-				"end": w["charInd"] - 1,
-				"color": Color.AQUAMARINE
-			})
+	if !cardSelected || selectedCard.reg.search(w["word"]) == null:
+		return
 		
-		# what follows is a dumb hack to force refresh (without changing caret and scroll)
-		var te = $"/root/Encrypt/ScrollContainer/Recipe"
-		var v = te.scroll_vertical
-		var h = te.scroll_horizontal
-		var c = te.get_caret_column()
-		var l = te.get_caret_line()
-
-		$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.clear_highlighting_cache()
-		te.text = te.text
-
-		te.set_caret_line(l)
-		te.set_caret_column(c)
-		te.scroll_vertical = v
-		te.scroll_horizontal = h
+	var te = $"/root/Encrypt/ScrollContainer/Recipe"
+	var v = te.scroll_vertical
+	var h = te.scroll_horizontal
+	var c = te.get_caret_column()
+	var l = te.get_caret_line()
 	
+	arguments.push_back(w)
+	if len(arguments) == selectedCard.numArgs:
+		$"/root/Encrypt".points += 10
+		$"/root/Encrypt/Points".text = str($"/root/Encrypt".points)
+		var distorted = selectedCard.distort(arguments.duplicate(true))
+		recipe.replace_words(arguments.duplicate(true), distorted)
+		recycleCard(selectedCard)
+		
+		# remove any highlights from the arguments
+		for arg in arguments:
+			var j = 0
+			var ranges = $"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges
+			while j < len(ranges):
+				if arg["line"] == ranges[j].line && arg["charInd"] == ranges[j].end:
+					ranges.remove_at(j)
+				else:
+					j += 1
+		
+		# EXTREME HACKS AHEAD
+		var i = 0
+		var ranges = $"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges
+		var prev_delta = 0 # massive hack, sorry
+		var prev_line = 0
+		for arg in arguments:
+			var start = arg["charInd"] - len(arg["word"])
+			var end = arg["charInd"] - len(arg["word"]) + len(distorted[i]["word"])
+			if arg["line"] == prev_line:
+				start += prev_delta
+				end += prev_delta
+			var delta = len(distorted[i]["word"]) - len(arg["word"])
+			
+			# shift all existing highlights after this one, because length may differ
+			for r in ranges:
+				if r.line == arg["line"] && r.start >= arg["charInd"]:
+					r.start += delta
+					r.end += delta
+			
+			# add new highlight
+			ranges.push_back({
+				"line": arg["line"],
+				"start": start,
+				"end": end,
+				"color": Color.ORANGE
+			})
+			i += 1
+			prev_delta = delta
+			prev_line = arg["line"]
+		arguments = []
+	else:
+		$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges.push_back({
+			"line": w["line"],
+			"start": w["charInd"] - len(w["word"]),
+			"end": w["charInd"],
+			"color": Color.AQUAMARINE
+		})
+	
+	# what follows is a dumb hack to force refresh (without changing caret and scroll)
+	$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.clear_highlighting_cache()
+	te.text = te.text
+
+	te.set_caret_line(l)
+	te.set_caret_column(c)
+	te.scroll_vertical = v
+	te.scroll_horizontal = h
+
 func wiggle_tween(o):
 	var t = create_tween()
 	t.tween_property(o, "scale", Vector2(0.8,0.8), 0.1)
