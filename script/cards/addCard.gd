@@ -6,5 +6,3 @@ func setCardProps():
 	
 func get_mod():
 	return "points"
-
-	
