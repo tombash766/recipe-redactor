@@ -1,8 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkyb73ch8c2nq"]
+[gd_scene load_steps=9 format=3 uid="uid://bkyb73ch8c2nq"]
 
 [ext_resource type="Script" uid="uid://cfwyhtty6vhbf" path="res://script/lobby.gd" id="1_ll2xe"]
-[ext_resource type="Texture2D" uid="uid://cqv10btilmtc8" path="res://textures/dark_red_background.jpg" id="1_q60fs"]
+[ext_resource type="Texture2D" uid="uid://dhjdluu45ifhf" path="res://textures/title.png" id="1_nqcc7"]
+[ext_resource type="Texture2D" uid="uid://cckqy4h370huo" path="res://textures/red_background.jpg" id="1_q60fs"]
 [ext_resource type="AudioStream" uid="uid://cibt0h4drunox" path="res://scenes/NJET MOLOTOV COCKTAIL.mp3" id="2_5gu6x"]
+
+[sub_resource type="Animation" id="Animation_pc087"]
+resource_name = "title"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LobbyPanel/CenterContainer/Title:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75, 1.5, 2.25, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.1308996938995747, 0.0, -0.1308996938995747, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_apkv3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LobbyPanel/CenterContainer/Title:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_omrgh"]
+_data = {
+&"RESET": SubResource("Animation_apkv3"),
+&"title": SubResource("Animation_pc087")
+}
 
 [sub_resource type="LabelSettings" id="LabelSettings_ll2xe"]
 font_size = 30
@@ -24,22 +63,46 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.9989911, 1)
 texture = ExtResource("1_q60fs")
 
 [node name="LobbyPanel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 offset_left = -325.5
-offset_top = -161.5
+offset_top = -346.0
 offset_right = 325.5
-offset_bottom = 161.5
+offset_bottom = -23.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 script = ExtResource("1_ll2xe")
+
+[node name="CenterContainer" type="CenterContainer" parent="LobbyPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = -302.0
+offset_right = 20.0
+offset_bottom = -262.0
+grow_horizontal = 2
+
+[node name="Title" type="Sprite2D" parent="LobbyPanel/CenterContainer"]
+position = Vector2(0, 186)
+scale = Vector2(0.16403086, 0.18957938)
+texture = ExtResource("1_nqcc7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LobbyPanel/CenterContainer/Title"]
+root_node = NodePath("../../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_omrgh")
+}
+autoplay = "title"
 
 [node name="StatusOk" type="Label" parent="LobbyPanel"]
 layout_mode = 0
