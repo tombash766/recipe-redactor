@@ -9,6 +9,9 @@ var selectedInd
 var deformations = []
 var hl := preload("res://script/word_highlighter.gd").new()
 
+var SHORTESTRECIPE = 600
+var LONGESTRECIPE = 1000
+
 func _ready():
 	syntax_highlighter = hl
 	set_random_recipe()
@@ -47,13 +50,15 @@ func _on_request_completed(
 		push_error("Invalid JSON")
 		return
 	var ingredients = ", ".join(json["ingredients"])
-	var instructions = "\n".join( json["instructions"] )
+	var instructions = ""
+	for i in range(len(json["instructions"])):
+		instructions += "%s. " % (i + 1)
+		instructions += json["instructions"][i] + "\n\n"
 	var recipeText = json["title"] + "\n\n" + ingredients  + "\n\n" + instructions
-	if len(recipeText) > 1000 :
-		print( "recipe too long: %s\nretrying.." % len(recipeText) )
+	if len(recipeText) >= LONGESTRECIPE || len(recipeText) <= SHORTESTRECIPE :
+		print( "recipe length out of bounds: %s\nretrying.." % len(recipeText) )
 		set_random_recipe()
 		return
-		
 	recipeText = decode_recipe_text(recipeText)
 	
 	set_text( recipeText ) 
@@ -104,9 +109,11 @@ func _on_caret_changed() -> void:
 	
 	count += 1
 
-	#selectedWord = remove_punctuation(w)
 	var valid = CardManager.selectedCard.reg.search(w)
-	if valid == null: return
+	if valid == null:
+		CardManager.update_helper("invalid, card expects %s" % CardManager.selectedCard.regDesc, true)
+		return
+	
 	
 	selectedWord = valid.get_string()
 	selectedInd = i - 1
@@ -115,14 +122,17 @@ func _on_caret_changed() -> void:
 	for d in deformations:
 		for rep in d:
 			if rep["original"]["line"] == selectedLine && rep["original"]["wordInd"] == selectedInd:
+				CardManager.update_helper("This word is already deformed", true)
 				return
 				
 	if CardManager.selectedCard is SwapCard && CardManager.arguments != []:
 		if CardManager.arguments[0]["word"] == selectedWord:
+			CardManager.update_helper("Can't swap the same word", true)
 			return
 	
 	if CardManager.selectedCard is WordCard:
 		if CardManager.selectedCard.word == selectedWord:
+			CardManager.update_helper("Can't replace the same word", true)
 			return
 	
 	print("accepted %s" % selectedWord)

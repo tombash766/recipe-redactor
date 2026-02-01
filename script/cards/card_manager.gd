@@ -9,7 +9,9 @@ var deformations = []
 
 var arguments = []
 var recipe
-var originalContainer
+var dealer
+var helper
+
 var cardPresets = [
 	preload("res://scenes/cards/shuffle_card.tscn"),
 	preload("res://scenes/cards/swap_card.tscn"),
@@ -41,10 +43,7 @@ var WORDLIST = [
 
 func findDealer():
 	dealer = $"/root/Encrypt/Dealer"
-	
-	
-func _process(_delta: float) -> void:
-	pass
+	helper = $"/root/Encrypt/Helper"
 
 func selectCard(c) -> void:
 	cardSelected = true;
@@ -57,6 +56,7 @@ func selectCard(c) -> void:
 	if selectedCard is Card:
 		wiggle_tween(selectedCard)
 		selectedCard.targetPos = selectedCard.targetPos + Vector2(0, -100)
+	update_helper()
 	
 func recycleCard(c):
 	deselect()
@@ -153,6 +153,7 @@ func submit_word(w):
 			"end": w["charInd"],
 			"color": Color.AQUAMARINE
 		})
+	update_helper()
 	
 	# what follows is a dumb hack to force refresh (without changing caret and scroll)
 	$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.clear_highlighting_cache()
@@ -174,12 +175,33 @@ func flip_tween(o, f : Callable):
 	t.tween_callback( f )
 	t.tween_property(o, "scale:x", 1, 0.1).set_trans(Tween.TRANS_CIRC)
 
-func reset():
+func err_tween(o):
+	var start = o.get_position()
+	var t = create_tween()
+	t.tween_property(o, "position", start + Vector2(0, -8), 0.05)
+	t.tween_property(o, "position", start + Vector2(0,  8), 0.05)
+	t.tween_property(o, "position", start, 0.2).set_trans(Tween.TRANS_ELASTIC)
+	
+func update_helper(s = null, err = false):
+	var msg = ""
+	if s != null:
+		msg = s
+	elif cardSelected:
+		var n = selectedCard.numArgs - len(arguments)
+		msg = "select %s more word" % n + ("s" if n != 1 else "")
+	else:
+		msg = "select a word"
+	if err:
+		helper.set_text("[color=#FF0000]%s[/color]" % msg)
+		err_tween(helper)
+	else:
+		helper.set_text("[wave amp=50 freq=3]%s[/wave]" % msg)
+		
+func reset_game():
 	cardSelected = false;
 	selectedCard = null;
 	cardContainer = null;
-
 	modifiers = []
 	deformations = []
-
 	arguments = []
+	
