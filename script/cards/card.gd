@@ -12,6 +12,7 @@ var targetPos;
 var targetRot;
 var back_tex
 var tex
+var used = false
 
 func apply(args):
 	for arg in args:
@@ -39,6 +40,7 @@ func _ready() -> void:
 		targetRot = 0
 
 func _process(delta: float) -> void:
+	if used: return
 	var p = get_position()
 	var posDiff = (targetPos - p).limit_length( CardManager.MAX_VELO )
 	set_position( lerp(p, p + posDiff, 
@@ -55,3 +57,8 @@ func set_facing(fu : bool):
 	
 func get_info() -> String:
 	return "[" + str(typeInd) + "]"
+	
+func use_card(p):
+	used = true
+	CardManager.card_use_tween(self, p)
+	

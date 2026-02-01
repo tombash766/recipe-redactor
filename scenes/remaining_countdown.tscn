@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0iku48dm8hs"]
+[gd_scene load_steps=7 format=3 uid="uid://2wefs1r3qmr7"]
+
+[ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="1_t2lco"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2dchv"]
 font_size = 56
@@ -67,10 +69,9 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_5t5pj"]
 
 [node name="RemainingCountdown" type="Label"]
-offset_left = 20.0
-offset_top = 367.0
-offset_right = 121.0
-offset_bottom = 437.0
+offset_right = 100.0
+offset_bottom = 70.0
+theme = ExtResource("1_t2lco")
 text = "38.0"
 label_settings = SubResource("LabelSettings_2dchv")
 horizontal_alignment = 1
@@ -84,10 +85,9 @@ libraries = {
 [node name="TimeLeftLabel" type="Label" parent="."]
 z_index = 1
 layout_mode = 0
-offset_left = 9.0
-offset_top = -27.0
-offset_right = 107.0
-offset_bottom = 43.0
+offset_top = -32.0
+offset_right = 99.0
+offset_bottom = 38.0
 text = "TIME LEFT"
 label_settings = SubResource("LabelSettings_5t5pj")
 horizontal_alignment = 1

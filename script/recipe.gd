@@ -107,7 +107,6 @@ func _on_caret_changed() -> void:
 	re.compile("[\\+,\\.\\(\\)\\[\\]\\!_\\&\\'\\\"\\/]")
 	while count > 0 && re.search(line[count]) != null:
 		count -= 1
-	
 	count += 1
 	
 	var valid = CardManager.selectedCard.reg.search(w)

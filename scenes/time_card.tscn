@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://xfqafjymrd5r"]
+
+[ext_resource type="PackedScene" uid="uid://ycndkh5uk54t" path="res://scenes/cards/card.tscn" id="1_ftg2j"]
+[ext_resource type="Script" uid="uid://vhsvv8dy5k4p" path="res://script/cards/timeCard.gd" id="2_7usop"]
+
+[node name="TimeCard" instance=ExtResource("1_ftg2j")]
+script = ExtResource("2_7usop")
+
+[node name="CardTex" parent="." index="1"]
+frame = 6

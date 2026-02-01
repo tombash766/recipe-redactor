@@ -33,6 +33,7 @@ func on_timer_expire():
 	var intermission = load("res://scenes/intermission.tscn").instantiate()
 	intermission.local_recipe = $ScrollContainer/Recipe.text
 	intermission.local_deformations = $ScrollContainer/Recipe.deformations
+	intermission.local_modifiers = CardManager.modifiers
 	intermission.points = points
 	get_tree().get_root().add_child(intermission)
 	queue_free()

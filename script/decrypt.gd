@@ -1,19 +1,34 @@
 extends Control
 
 var deformations
+var modifiers
 var found_deformations = []
 var checked_locations = []
 var points
 var hl := preload("res://script/word_highlighter.gd").new()
 var first = true # hack
 
+var timer 
+
+var WAITTIMEDEFAULT = 64
+var TIMEMULTIPLIER = 0.8
+var GHOSTCOL = Color(1.0, 1.0, 1.0, 0.1)
+
 func _ready():
+	timer = $Timer
 	$ScrollContainer/Recipe.syntax_highlighter = hl
-	$Timer.start()
+	if "ghost" in modifiers:
+		$ScrollContainer/Recipe.add_theme_color_override("font_readonly_color", GHOSTCOL)
+	if "time" in modifiers:
+		timer.wait_time = WAITTIMEDEFAULT * TIMEMULTIPLIER
+		$/Lobby/LobbyPanel/Molotov.pitch_scale = 1 / TIMEMULTIPLIER
+	else:
+		timer.wait_time = WAITTIMEDEFAULT
+	timer.start()
 
 func _process(_delta: float) -> void:
-	if !$Timer.is_stopped():
-		$RemainingCountdown.text = "%1.1f" % $Timer.time_left
+	if !timer.is_stopped():
+		$RemainingCountdown.text = "%1.1f" % timer.time_left
 		if $RemainingCountdown.text.ends_with("0"):
 			$RemainingCountdown/AnimationPlayer.current_animation = "time_flash"
 
@@ -75,7 +90,6 @@ func _on_caret_changed() -> void:
 	re.compile("[\\+,\\.\\(\\)\\[\\]\\!_\\&\\'\\\"\\/]")
 	while count > 0 && re.search(line[count]) != null:
 		count -= 1
-	
 	count += 1
 	i -= 1
 	

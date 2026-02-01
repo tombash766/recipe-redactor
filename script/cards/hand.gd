@@ -8,6 +8,7 @@ func _ready():
 	for c in CardManager.get_full_deck():
 		add_card(c)
 		await CardManager.deal_delay(0.2)
+	CardManager.update_helper()
 	
 func add_card(c : Card) -> void:
 	cards.push_back(c)
