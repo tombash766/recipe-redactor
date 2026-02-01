@@ -18,7 +18,6 @@ var cardPresets = [
 	preload("res://scenes/cards/mult_card.tscn"),
 	preload("res://scenes/cards/word_card.tscn"),
 	preload("res://scenes/cards/ghost_card.tscn"),
-	preload("res://scenes/cards/time_card.tscn"),
 	preload("res://scenes/cards/add_card.tscn")
 ]
 
