@@ -24,7 +24,7 @@ var ROT_SPEED = 6
 var ROT_AMOUNT = 0.007
 var FOLLOW_SPEED = 20
 var MAX_VELO = 100
-var SPR_SIZE = Vector2(60,87)
+var SPR_SIZE = Vector2(61,87)
 var CARD_SIZE = Vector2(120, 174);
 var DEAL_DELAY = 0.05
 var WORDLIST = [
@@ -36,7 +36,11 @@ var WORDLIST = [
 	"eggs",
 	"cook",
 	"heat",
-	"simmer",
+	"314",
+	"420",
+	"destroy",
+	"mustard",
+	"the",
 	"molotov"
 ]
 
@@ -66,6 +70,7 @@ func deselect() -> void:
 	if selectedCard is Card:
 		selectedCard.targetPos = selectedCard.targetPos + Vector2(0, 100)
 	cardSelected = false;
+	remove_arg_highlights()
 	
 func get_random_card():
 	if dealer == null : findDealer()
@@ -86,7 +91,17 @@ func get_full_deck():
 func deal_delay(t : float = DEAL_DELAY) -> void:
 	await get_tree().create_timer(t).timeout
 	return
-	
+
+func remove_arg_highlights():
+	for arg in arguments:
+			var j = 0
+			var ranges = $"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges
+			while j < len(ranges):
+				if arg["line"] == ranges[j].line && arg["charInd"] == ranges[j].end:
+					ranges.remove_at(j)
+				else:
+					j += 1
+
 func submit_word(w):
 	if !cardSelected || selectedCard.reg.search(w["word"]) == null:
 		return
@@ -104,16 +119,7 @@ func submit_word(w):
 		var distorted = selectedCard.distort(arguments.duplicate(true))
 		recipe.replace_words(arguments.duplicate(true), distorted)
 		recycleCard(selectedCard)
-		
-		# remove any highlights from the arguments
-		for arg in arguments:
-			var j = 0
-			var ranges = $"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges
-			while j < len(ranges):
-				if arg["line"] == ranges[j].line && arg["charInd"] == ranges[j].end:
-					ranges.remove_at(j)
-				else:
-					j += 1
+		remove_arg_highlights()
 		
 		# EXTREME HACKS AHEAD
 		var i = 0

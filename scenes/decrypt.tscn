@@ -1,170 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cduuy23o3u6s7"]
+[gd_scene load_steps=7 format=3 uid="uid://cduuy23o3u6s7"]
 
 [ext_resource type="Script" uid="uid://cjf0lj6ht4126" path="res://script/decrypt.gd" id="1_2ji2i"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_2ji2i"]
-font_size = 116
-
-[sub_resource type="Animation" id="Animation_dqury"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../PointDelta:label_settings:font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(116, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PointDelta:label_settings:font_color:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../PointDelta:label_settings:font_color:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../PointDelta:label_settings:font_color:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../PointDelta:label_settings:font_color:r")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_blc86"]
-resource_name = "points_add"
-length = 0.701
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../PointDelta:label_settings:font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 0, 0),
-"points": PackedFloat32Array(1, 0, 0, 0.16666667, 19.333334, 116, -0.25, 0, 0.25, 0, 100, -0.08888888, 19.333334, 0, 0),
-"times": PackedFloat32Array(0, 0.13333334, 0.4666667)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PointDelta:label_settings:font_color:r")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -1.6664466e-05, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.46676666)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../PointDelta:label_settings:font_color:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.07777778, 0.16666667, 0, 0),
-"times": PackedFloat32Array(0, 0.46666667)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../PointDelta:label_settings:font_color:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.07777778, 0.16666667, 0, 0),
-"times": PackedFloat32Array(0, 0.46666667)
-}
-
-[sub_resource type="Animation" id="Animation_2ji2i"]
-resource_name = "points_sub"
-length = 0.701
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../PointDelta:label_settings:font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 0, 0),
-"points": PackedFloat32Array(0, 0, 0, 0.16666667, 19.333334, 116, -0.25, 0, 0.25, 0, 100, -0.08888888, 19.333334, 0, 0),
-"times": PackedFloat32Array(0, 0.13333334, 0.4666667)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../PointDelta:label_settings:font_color:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.07777778, 0.16666667, 0, 0),
-"times": PackedFloat32Array(0, 0.46666667)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../PointDelta:label_settings:font_color:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.07777778, 0.16666667, 0, 0),
-"times": PackedFloat32Array(0, 0.46666667)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../PointDelta:label_settings:font_color:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 2),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.07777778, 0.16666667, 0, 0),
-"times": PackedFloat32Array(0, 0.46666667)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_y6uwi"]
-_data = {
-&"RESET": SubResource("Animation_dqury"),
-&"points_add": SubResource("Animation_blc86"),
-&"points_sub": SubResource("Animation_2ji2i")
-}
+[ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="2_blc86"]
+[ext_resource type="PackedScene" uid="uid://ewhu2u814dv3" path="res://scenes/point_delta.tscn" id="2_dqury"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_blc86"]
 font_size = 56
@@ -248,34 +86,22 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2ji2i")
 
-[node name="PointDelta" type="Label" parent="."]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -67.0
-offset_top = -139.0
-offset_right = 69.0
-offset_bottom = -69.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(68, 35)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-label_settings = SubResource("LabelSettings_2ji2i")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PointDelta"]
-root_node = NodePath("../../RemainingCountdown")
-libraries = {
-&"": SubResource("AnimationLibrary_y6uwi")
-}
+[node name="PointDelta" parent="." instance=ExtResource("2_dqury")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 136.0
+offset_bottom = 70.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 48.0
+wait_time = 20.0
 one_shot = true
 
 [node name="RemainingCountdown" type="Label" parent="."]
@@ -344,6 +170,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
+theme = ExtResource("2_blc86")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
 text = "hello there"
