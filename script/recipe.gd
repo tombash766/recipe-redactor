@@ -100,6 +100,7 @@ func _on_caret_changed() -> void:
 		count += len(w) + 1
 		i = i + 1
 	count -= 2
+	count = max(0, count)
 	
 	# ignore punctuation because fuck it
 	var re := RegEx.new()

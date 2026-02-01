@@ -120,10 +120,11 @@ func submit_word(w):
 		var ranges = $"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges
 		var prev_delta = 0 # massive hack, sorry
 		var prev_line = 0
+		var prev_end = 0
 		for arg in arguments:
 			var start = arg["charInd"] - len(arg["word"])
 			var end = arg["charInd"] - len(arg["word"]) + len(distorted[i]["word"])
-			if arg["line"] == prev_line:
+			if arg["line"] == prev_line && arg["charInd"] >= prev_end:
 				start += prev_delta
 				end += prev_delta
 			var delta = len(distorted[i]["word"]) - len(arg["word"])
@@ -144,6 +145,7 @@ func submit_word(w):
 			i += 1
 			prev_delta = delta
 			prev_line = arg["line"]
+			prev_end = end
 		arguments = []
 	else:
 		$"/root/Encrypt/ScrollContainer/Recipe".syntax_highlighter.ranges.push_back({

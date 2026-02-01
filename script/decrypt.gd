@@ -4,6 +4,7 @@ var deformations
 var found_deformations = []
 var points
 var hl := preload("res://script/word_highlighter.gd").new()
+var first = true # hack
 
 func _ready():
 	$ScrollContainer/Recipe.syntax_highlighter = hl
@@ -41,32 +42,48 @@ func set_points(opponent_points: int):
 	get_tree().get_root().add_child(game_over)
 
 func _on_caret_changed() -> void:
+	if first:
+		first = false
+		return
+		
 	var col = $ScrollContainer/Recipe.get_caret_column()
-	var line = $ScrollContainer/Recipe.get_caret_line()
-	var words = $ScrollContainer/Recipe.get_text().split("\n")[line].split(" ")
-	var word_index = 0
+	var line_num = $ScrollContainer/Recipe.get_caret_line()
+	var line = $ScrollContainer/Recipe.get_text().split("\n")[line_num]
+	var words = line.split(" ")
+	var i = 0
 	var count = 0
 	var w = ""
-	while count < col:
-		w = words[word_index]
+	
+	while count <= col:
+		w = words[i]
 		count += len(w) + 1
-		word_index += 1
+		i = i + 1
+	count -= 2
+	count = max(0, count)
 	
-	if word_index == 0:
+	if len(line) == 0:
 		return
+		
+	# ignore punctuation because fuck it
+	var re := RegEx.new()
+	re.compile("[\\+,\\.\\(\\)\\[\\]\\!_\\&\\'\\\"\\/]")
+	while re.search(line[count]) != null:
+		count -= 1
 	
-	var selectedWord = w.replace(" ","")
-	var selectedInd = word_index - 1
+	count += 1
 	
 	for group in found_deformations:
 		for distortion in group:
-			if distortion.original.line == line && distortion.original.wordInd == selectedInd:
+			if distortion.original.line == line_num && distortion.original.charInd == count:
 				return
 	
 	var matching_group = null
 	for group in deformations:
 		for distortion in group:
-			if distortion.original.line == line && distortion.original.wordInd == selectedInd:
+			print("fuck")
+			print(distortion.original.charInd)
+			print(count)
+			if distortion.original.line == line_num && distortion.distorted.charInd == count:
 				matching_group = group
 	
 	var color
@@ -86,7 +103,7 @@ func _on_caret_changed() -> void:
 		color = Color.RED
 	$Points.text = str(points)
 	$ScrollContainer/Recipe.syntax_highlighter.ranges.push_back({
-		"line": line,
+		"line": line_num,
 		"start": count - 1 - len(w),
 		"end": count - 1,
 		"color": color
