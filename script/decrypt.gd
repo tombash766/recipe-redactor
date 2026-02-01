@@ -40,6 +40,10 @@ func set_points(opponent_points: int):
 		game_over.get_node("Outcome").text = "VICTORY OVER OUR ENEMIES"
 	get_tree().get_root().add_child(game_over)
 
+func add_points(n):
+	points += n
+	$PointDelta.add_points_anim(n)
+	
 func _on_caret_changed() -> void:
 	var col = $ScrollContainer/Recipe.get_caret_column()
 	var line = $ScrollContainer/Recipe.get_caret_line()
@@ -71,18 +75,12 @@ func _on_caret_changed() -> void:
 	
 	var color
 	if matching_group != null:
-		points += 20
-		$PointDelta.text = "+20"
-		$PointDelta/AnimationPlayer.stop()
-		$PointDelta/AnimationPlayer.current_animation = "points_add"
+		add_points(20)
 		found_deformations.push_back(matching_group)
 		deformations.erase(matching_group)
 		color = Color.GREEN
 	else:
-		points -= 10
-		$PointDelta.text = "-10"
-		$PointDelta/AnimationPlayer.stop()
-		$PointDelta/AnimationPlayer.current_animation = "points_sub"
+		add_points(-10)
 		color = Color.RED
 	$Points.text = str(points)
 	$ScrollContainer/Recipe.syntax_highlighter.ranges.push_back({
