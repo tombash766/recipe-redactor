@@ -10,7 +10,7 @@ var first = true # hack
 
 var timer 
 
-var WAITTIMEDEFAULT = 64
+var WAITTIMEDEFAULT = 48
 var TIMEMULTIPLIER = 0.8
 var GHOSTCOL = Color(1.0, 1.0, 1.0, 0.1)
 
