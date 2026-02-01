@@ -94,15 +94,15 @@ func _on_caret_changed() -> void:
 	count += 1
 	i -= 1
 	
-	var location = { "line": line, "count": count}
+	var location = { "line_num": line_num, "count": count}
 	if location in checked_locations:
 		return
-	
+		
 	checked_locations.push_back(location)
 	
 	for group in found_deformations:
 		for distortion in group:
-			if distortion.original.line == line_num && distortion.original.charInd == count:
+			if distortion.original.line == line_num && distortion.original.wordInd == i:
 				return
 	
 	var matching_group = null
