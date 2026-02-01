@@ -14,7 +14,7 @@ func add_card(c : Card) -> void:
 	cards.push_back(c)
 	add_child(c)
 	c.set_position( c.get_position() - get_position() )
-	c.z_index = get_amount() * 2 + 10
+	c.z_index = get_amount() * 2
 	c.targetPos = get_position()
 	c.set_facing(true)
 	distribute_cards()
