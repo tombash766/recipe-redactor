@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwxyugc7rinhv"
-path="res://.godot/imported/extraextra1.png-9c7a3866af844b2ed6aedd3d08d0292c.ctex"
+uid="uid://bpxfw0gja08j1"
+path="res://.godot/imported/howmanyeggs.png-f8d707a3c2ffd11d91927f3297ff773b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/extraextra1.png"
-dest_files=["res://.godot/imported/extraextra1.png-9c7a3866af844b2ed6aedd3d08d0292c.ctex"]
+source_file="res://textures/howmanyeggs.png"
+dest_files=["res://.godot/imported/howmanyeggs.png-f8d707a3c2ffd11d91927f3297ff773b.ctex"]
 
 [params]
 

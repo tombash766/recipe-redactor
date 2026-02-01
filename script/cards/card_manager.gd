@@ -55,7 +55,10 @@ func selectCard(c) -> void:
 	cardContainer = c.get_parent();
 	arguments = []
 	if selectedCard is ModCard:
-		modifiers.push_back( selectedCard.get_mod() )
+		if selectedCard is AddCard:
+			add_points(5)
+		else:
+			modifiers.push_back( selectedCard.get_mod() )
 		recycleCard(selectedCard)
 	elif selectedCard is Card:
 		wiggle_tween(selectedCard)
@@ -79,6 +82,9 @@ func get_random_card():
 	if dealer == null : findDealer()
 	var ind = randi() % len(cardPresets)
 	var c = cardPresets[ind].instantiate()
+	if c is ModCard:
+		ind = randi() % len(cardPresets)
+		c = cardPresets[ind].instantiate()
 	if c is ModCard:
 		cardPresets.remove_at(ind)
 	c.set_position( dealer.get_position() )

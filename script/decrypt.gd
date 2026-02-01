@@ -21,7 +21,8 @@ func _ready():
 		$ScrollContainer/Recipe.add_theme_color_override("font_readonly_color", GHOSTCOL)
 	if "time" in modifiers:
 		timer.wait_time = WAITTIMEDEFAULT * TIMEMULTIPLIER
-		$/Lobby/LobbyPanel/Molotov.pitch_scale = 1 / TIMEMULTIPLIER
+		print($/root/Lobby/LobbyPanel/Molotov)
+		$/root/Lobby/LobbyPanel/Molotov.pitch_scale = 1 / TIMEMULTIPLIER
 	else:
 		timer.wait_time = WAITTIMEDEFAULT
 	timer.start()

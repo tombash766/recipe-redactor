@@ -6,6 +6,7 @@ var points = 10
 
 func _ready():
 	$ScrollContainer.hide()
+	$Helper.hide()
 	$StartCountdown.text = "3"
 	await get_tree().create_timer(1).timeout
 	$StartCountdown.text = "2"
@@ -16,6 +17,7 @@ func _ready():
 	await get_tree().create_timer(1).timeout
 	$StartCountdown.text = ""
 	$ScrollContainer.show()
+	$Helper.show()
 	$Timer.start()
 
 func _process(delta: float) -> void:
