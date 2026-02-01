@@ -19,7 +19,6 @@ var cardPresets = [
 	preload("res://scenes/cards/word_card.tscn"),
 	preload("res://scenes/cards/ghost_card.tscn")
 ]
-var dealer
 
 var ROT_SPEED = 6
 var ROT_AMOUNT = 0.007
