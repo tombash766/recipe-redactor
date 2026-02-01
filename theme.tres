@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://i51yyj0b2s3u"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://i51yyj0b2s3u"]
 
 [ext_resource type="FontFile" uid="uid://dm8lskpay2pky" path="res://OldNewspaperTypes.ttf" id="1_e1x85"]
 
@@ -11,7 +11,13 @@ border_width_bottom = 10
 border_color = Color(0.13851225, 0.4711749, 0.22432011, 1)
 border_blend = true
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfk0"]
+bg_color = Color(0.13163668, 0.17058536, 0.1359163, 1)
+border_color = Color(0, 0, 0, 0)
+border_blend = true
+
 [resource]
 default_font = ExtResource("1_e1x85")
 default_font_size = 20
 RichTextLabel/styles/normal = SubResource("StyleBoxFlat_e1x85")
+TextEdit/styles/normal = SubResource("StyleBoxFlat_cjfk0")

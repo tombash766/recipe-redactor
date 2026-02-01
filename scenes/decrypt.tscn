@@ -3,75 +3,8 @@
 [ext_resource type="Script" uid="uid://cjf0lj6ht4126" path="res://script/decrypt.gd" id="1_2ji2i"]
 [ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="2_blc86"]
 [ext_resource type="PackedScene" uid="uid://ewhu2u814dv3" path="res://scenes/point_delta.tscn" id="2_dqury"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_blc86"]
-font_size = 56
-
-[sub_resource type="LabelSettings" id="LabelSettings_y6uwi"]
-
-[sub_resource type="Animation" id="Animation_1glcx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:label_settings:font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:label_settings:font_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [56]
-}
-
-[sub_resource type="Animation" id="Animation_y6uwi"]
-resource_name = "time_flash"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:label_settings:font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:label_settings:font_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.23333333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [60, 56]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qbaxg"]
-_data = {
-&"RESET": SubResource("Animation_1glcx"),
-&"time_flash": SubResource("Animation_y6uwi")
-}
-
-[sub_resource type="LabelSettings" id="LabelSettings_1glcx"]
-font_size = 50
+[ext_resource type="PackedScene" uid="uid://bm5j78ysqyu6j" path="res://scenes/points.tscn" id="3_y6uwi"]
+[ext_resource type="PackedScene" uid="uid://b0iku48dm8hs" path="res://scenes/remaining_countdown.tscn" id="4_1glcx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dqury"]
 font_size = 146
@@ -93,10 +26,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 136.0
-offset_bottom = 70.0
+offset_left = 525.0
+offset_top = 166.0
+offset_right = 661.0
+offset_bottom = 324.0
 grow_horizontal = 1
 grow_vertical = 1
 
@@ -104,57 +37,11 @@ grow_vertical = 1
 wait_time = 20.0
 one_shot = true
 
-[node name="RemainingCountdown" type="Label" parent="."]
-z_index = 1
+[node name="Points" parent="." instance=ExtResource("3_y6uwi")]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 101.0
-offset_bottom = 72.0
-text = "48.0"
-label_settings = SubResource("LabelSettings_blc86")
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="TimeLeftLabel" type="Label" parent="RemainingCountdown"]
-z_index = 1
+[node name="RemainingCountdown" parent="." instance=ExtResource("4_1glcx")]
 layout_mode = 0
-offset_left = 9.0
-offset_top = -27.0
-offset_right = 107.0
-offset_bottom = 43.0
-text = "TIME LEFT"
-label_settings = SubResource("LabelSettings_y6uwi")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="RemainingCountdown"]
-libraries = {
-&"": SubResource("AnimationLibrary_qbaxg")
-}
-
-[node name="Points" type="Label" parent="."]
-layout_mode = 0
-offset_left = 1053.0
-offset_top = 3.0
-offset_right = 1151.0
-offset_bottom = 73.0
-text = "0"
-label_settings = SubResource("LabelSettings_1glcx")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PointsLabel" type="Label" parent="Points"]
-z_index = 1
-layout_mode = 0
-offset_left = 1.0
-offset_top = -28.0
-offset_right = 99.0
-offset_bottom = 42.0
-text = "SCORE"
-label_settings = SubResource("LabelSettings_y6uwi")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0

@@ -10,7 +10,7 @@ func _ready():
 	$ScrollContainer/Recipe.syntax_highlighter = hl
 	$Timer.start()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !$Timer.is_stopped():
 		$RemainingCountdown.text = "%1.1f" % $Timer.time_left
 		if $RemainingCountdown.text.ends_with("0"):

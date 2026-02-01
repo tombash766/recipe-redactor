@@ -22,8 +22,8 @@ var cardPresets = [
 
 var ROT_SPEED = 6
 var ROT_AMOUNT = 0.007
-var FOLLOW_SPEED = 20
-var MAX_VELO = 100
+var FOLLOW_SPEED = 9
+var MAX_VELO = 200
 var SPR_SIZE = Vector2(61,87)
 var CARD_SIZE = Vector2(120, 174);
 var DEAL_DELAY = 0.05
@@ -63,7 +63,10 @@ func selectCard(c) -> void:
 	
 func recycleCard(c):
 	deselect()
-	cardContainer.delete_card(c)
+	cardContainer.remove_card(c)
+	cardContainer.add_sibling(c)
+	c.targetPos = get_global_mouse_position()
+	card_use_tween(c)
 	cardContainer.add_card(get_random_card())
 	
 func deselect() -> void:
@@ -102,6 +105,11 @@ func remove_arg_highlights():
 				else:
 					j += 1
 
+func add_points(n):
+	$"/root/Encrypt".points += n
+	$"/root/Encrypt/Points".text = str($"/root/Encrypt".points)
+	$"/root/Encrypt/PointDelta".add_points_anim(n)
+
 func submit_word(w):
 	if !cardSelected || selectedCard.reg.search(w["word"]) == null:
 		return
@@ -114,8 +122,7 @@ func submit_word(w):
 	
 	arguments.push_back(w)
 	if len(arguments) == selectedCard.numArgs:
-		$"/root/Encrypt".points += 10
-		$"/root/Encrypt/Points".text = str($"/root/Encrypt".points)
+		add_points(10)
 		var distorted = selectedCard.distort(arguments.duplicate(true))
 		recipe.replace_words(arguments.duplicate(true), distorted)
 		recycleCard(selectedCard)
@@ -188,6 +195,12 @@ func err_tween(o):
 	t.tween_property(o, "position", start + Vector2(0, -8), 0.05)
 	t.tween_property(o, "position", start + Vector2(0,  8), 0.05)
 	t.tween_property(o, "position", start, 0.2).set_trans(Tween.TRANS_ELASTIC)
+	
+func card_use_tween(o):
+	var t = create_tween()
+	t.tween_property(o, "scale", Vector2(0.7, 0.7), 0.2)
+	t.tween_property(o, "scale", Vector2(0, 0), 0.15).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	t.finished.connect(o.queue_free)
 	
 func update_helper(s = null, err = false):
 	var msg = ""

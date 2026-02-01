@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://r23xhgeqne0q"]
+[gd_scene load_steps=12 format=3 uid="uid://r23xhgeqne0q"]
 
 [ext_resource type="Script" uid="uid://hrrdpfw3mtih" path="res://script/encrypt.gd" id="1_dh3yh"]
 [ext_resource type="Script" uid="uid://cgpjq70xa3ojm" path="res://script/recipe.gd" id="2_2dchv"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://u26mkss0obsl" path="res://scenes/cards/hand.tscn" id="3_k5kmn"]
 [ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="4_5t5pj"]
 [ext_resource type="PackedScene" uid="uid://j4fk85se27ci" path="res://scenes/cards/dealer.tscn" id="4_54i3o"]
+[ext_resource type="PackedScene" uid="uid://b0iku48dm8hs" path="res://scenes/remaining_countdown.tscn" id="6_7mwiu"]
+[ext_resource type="PackedScene" uid="uid://bm5j78ysqyu6j" path="res://scenes/points.tscn" id="7_sm6fn"]
+[ext_resource type="PackedScene" uid="uid://ewhu2u814dv3" path="res://scenes/point_delta.tscn" id="8_7mwiu"]
 
 [sub_resource type="Theme" id="Theme_cxcll"]
 default_font = ExtResource("3_80t8n")
@@ -13,77 +16,6 @@ default_font = ExtResource("3_80t8n")
 [sub_resource type="LabelSettings" id="LabelSettings_k5kmn"]
 font_size = 146
 font_color = Color(1, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_2dchv"]
-font_size = 56
-
-[sub_resource type="Animation" id="Animation_1glcx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:label_settings:font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:label_settings:font_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [56]
-}
-
-[sub_resource type="Animation" id="Animation_y6uwi"]
-resource_name = "time_flash"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:label_settings:font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:label_settings:font_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.23333333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [60, 56]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qbaxg"]
-_data = {
-&"RESET": SubResource("Animation_1glcx"),
-&"time_flash": SubResource("Animation_y6uwi")
-}
-
-[sub_resource type="LabelSettings" id="LabelSettings_5t5pj"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_80t8n"]
-font_size = 56
-
-[sub_resource type="LabelSettings" id="LabelSettings_cxcll"]
 
 [node name="Encrypt" type="Node2D"]
 script = ExtResource("1_dh3yh")
@@ -96,9 +28,8 @@ blockAdd = false
 blockGet = false
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_left = 1.0
 offset_right = 1152.0
-offset_bottom = 352.0
+offset_bottom = 360.0
 theme = SubResource("Theme_cxcll")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 0
@@ -131,68 +62,33 @@ label_settings = SubResource("LabelSettings_k5kmn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RemainingCountdown" type="Label" parent="."]
-offset_left = 20.0
-offset_top = 367.0
-offset_right = 121.0
-offset_bottom = 437.0
-text = "38.0"
-label_settings = SubResource("LabelSettings_2dchv")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="RemainingCountdown"]
-libraries = {
-&"": SubResource("AnimationLibrary_qbaxg")
-}
-
-[node name="TimeLeftLabel" type="Label" parent="RemainingCountdown"]
-z_index = 1
-layout_mode = 0
-offset_left = 9.0
-offset_top = -27.0
-offset_right = 107.0
-offset_bottom = 43.0
-text = "TIME LEFT"
-label_settings = SubResource("LabelSettings_5t5pj")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="RemainingCountdown" parent="." instance=ExtResource("6_7mwiu")]
 
 [node name="Dealer" parent="." instance=ExtResource("4_54i3o")]
 position = Vector2(125, 583)
 
-[node name="Points" type="Label" parent="."]
-offset_left = 1044.0
-offset_top = 359.0
-offset_right = 1142.0
-offset_bottom = 436.0
-text = "0"
-label_settings = SubResource("LabelSettings_80t8n")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PointsLabel" type="Label" parent="Points"]
-z_index = 1
-layout_mode = 0
-offset_left = 1.0
-offset_top = -28.0
-offset_right = 99.0
-offset_bottom = 42.0
-text = "SCORE"
-label_settings = SubResource("LabelSettings_cxcll")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Helper" type="RichTextLabel" parent="."]
 offset_left = 888.0
-offset_top = 268.0
+offset_top = 275.0
 offset_right = 1145.0
-offset_bottom = 345.0
+offset_bottom = 352.0
 theme = ExtResource("4_5t5pj")
 bbcode_enabled = true
 text = "[wave amp=50.0 freq=5.0 connected=0.2]Instructions[/wave]"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Points" parent="." instance=ExtResource("7_sm6fn")]
+offset_left = 1045.0
+offset_top = 366.0
+offset_right = 1143.0
+offset_bottom = 436.0
+
+[node name="PointDelta" parent="." instance=ExtResource("8_7mwiu")]
+offset_left = 511.0
+offset_top = 161.0
+offset_right = 647.0
+offset_bottom = 319.0
 
 [connection signal="caret_changed" from="ScrollContainer/Recipe" to="ScrollContainer/Recipe" method="_on_caret_changed"]
 [connection signal="timeout" from="Timer" to="." method="on_timer_expire"]

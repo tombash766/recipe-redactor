@@ -23,6 +23,12 @@ func delete_card(c : Card):
 	remove_child(c)
 	c.queue_free()
 	distribute_cards()
+
+func remove_card(c : Card):
+	cards.erase(c)
+	remove_child(c)
+	c.set_position( c.get_position() + get_position() )
+	distribute_cards()
 	
 func get_card() -> Card:
 	return cards.pop_back()

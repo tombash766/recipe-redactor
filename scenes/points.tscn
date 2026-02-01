@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bm5j78ysqyu6j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1glcx"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_y6uwi"]
+
+[node name="Points" type="Label"]
+offset_right = 98.0
+offset_bottom = 70.0
+text = "0"
+label_settings = SubResource("LabelSettings_1glcx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PointsLabel" type="Label" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 1.0
+offset_top = -28.0
+offset_right = 99.0
+offset_bottom = 42.0
+text = "SCORE"
+label_settings = SubResource("LabelSettings_y6uwi")
+horizontal_alignment = 1
+vertical_alignment = 1
