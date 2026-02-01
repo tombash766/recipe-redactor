@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cduuy23o3u6s7"]
+[gd_scene load_steps=10 format=3 uid="uid://cduuy23o3u6s7"]
 
 [ext_resource type="Script" uid="uid://cjf0lj6ht4126" path="res://script/decrypt.gd" id="1_2ji2i"]
 
@@ -173,6 +173,8 @@ font_size = 56
 font_size = 146
 font_color = Color(1, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_y6uwi"]
+
 [node name="Decrypt" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -209,7 +211,7 @@ libraries = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 40.0
+wait_time = 48.0
 one_shot = true
 
 [node name="RemainingCountdown" type="Label" parent="."]
@@ -237,7 +239,7 @@ vertical_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 0
-offset_left = 105.0
+offset_left = 129.0
 offset_right = 1066.0
 offset_bottom = 646.0
 horizontal_scroll_mode = 0
@@ -264,6 +266,18 @@ offset_top = 75.0
 offset_right = 779.0
 offset_bottom = 363.0
 label_settings = SubResource("LabelSettings_dqury")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RemainingTimeText" type="Label" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 5.0
+offset_top = -24.0
+offset_right = 103.0
+offset_bottom = 46.0
+text = "TIME LEFT"
+label_settings = SubResource("LabelSettings_y6uwi")
 horizontal_alignment = 1
 vertical_alignment = 1
 

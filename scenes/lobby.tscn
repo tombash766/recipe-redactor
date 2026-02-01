@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkyb73ch8c2nq"]
 
 [ext_resource type="Script" uid="uid://cfwyhtty6vhbf" path="res://script/lobby.gd" id="1_ll2xe"]
-[ext_resource type="AudioStream" uid="uid://1i4dkijlvqv5" path="res://scenes/NJET MOLOTOV COCKTAIL.mp3" id="2_5gu6x"]
+[ext_resource type="AudioStream" uid="uid://cibt0h4drunox" path="res://scenes/NJET MOLOTOV COCKTAIL.mp3" id="2_5gu6x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ll2xe"]
 font_size = 30

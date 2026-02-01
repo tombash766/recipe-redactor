@@ -98,11 +98,8 @@ func _on_caret_changed() -> void:
 	
 	# ignore punctuation because fuck it
 	var re := RegEx.new()
-	re.compile("[\\+,\\.\\(\\)\\[\\]\\-_\\&\\'\\\"\\/]")
-	print(line[count])
-	print(line)
+	re.compile("[\\+,\\.\\(\\)\\[\\]\\!_\\&\\'\\\"\\/]")
 	while re.search(line[count]) != null:
-		print("boop")
 		count -= 1
 	
 	count += 1
