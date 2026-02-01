@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://crti0q4ewjv8o"]
+[gd_scene load_steps=9 format=3 uid="uid://crti0q4ewjv8o"]
 
 [ext_resource type="Script" uid="uid://clmcnag1ho0eg" path="res://script/game_over.gd" id="1_xeevv"]
+[ext_resource type="Texture2D" uid="uid://cckqy4h370huo" path="res://textures/red_background.jpg" id="2_wqhvx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_h0x4d"]
 font_size = 146
@@ -31,6 +32,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xeevv")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_wqhvx")
 
 [node name="Quit" type="Button" parent="."]
 layout_mode = 0

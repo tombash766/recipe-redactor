@@ -3,7 +3,7 @@
 [ext_resource type="FontFile" uid="uid://dm8lskpay2pky" path="res://OldNewspaperTypes.ttf" id="1_e1x85"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfk0"]
-bg_color = Color(0.13163668, 0.17058536, 0.1359163, 1)
+bg_color = Color(0.13333334, 0.16862746, 0.13725491, 0.60784316)
 border_color = Color(0, 0, 0, 0)
 border_blend = true
 

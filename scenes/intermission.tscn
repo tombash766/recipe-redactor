@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://byw5v8p5r7nno"]
+[gd_scene load_steps=6 format=3 uid="uid://byw5v8p5r7nno"]
 
 [ext_resource type="Script" uid="uid://c6oodu45mj4hr" path="res://script/intermission.gd" id="1_kpofo"]
 [ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="1_xx0sb"]
+[ext_resource type="Texture2D" uid="uid://cckqy4h370huo" path="res://textures/red_background.jpg" id="3_cv4pq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jus8f"]
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_kpofo"]
-font_size = 205
+font_size = 175
 font_color = Color(1, 0.4392157, 0.12941177, 1)
 
 [node name="Intermission" type="Control"]
@@ -19,6 +20,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xx0sb")
 script = ExtResource("1_kpofo")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_cv4pq")
 
 [node name="GetReadyTo" type="Label" parent="."]
 layout_mode = 1
@@ -44,9 +56,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -444.5
+offset_left = -521.0
 offset_top = -140.5
-offset_right = 444.5
+offset_right = 521.0
 offset_bottom = 140.5
 grow_horizontal = 2
 grow_vertical = 2
