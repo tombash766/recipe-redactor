@@ -35,7 +35,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 48.0
+wait_time = 32.0
 one_shot = true
 
 [node name="Points" parent="." instance=ExtResource("3_y6uwi")]
