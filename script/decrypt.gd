@@ -12,6 +12,8 @@ func _ready():
 func _process(delta: float) -> void:
 	if !$Timer.is_stopped():
 		$RemainingCountdown.text = "%1.1f" % $Timer.time_left
+		if $RemainingCountdown.text.ends_with("0"):
+			$RemainingCountdown/AnimationPlayer.current_animation = "time_flash"
 
 func on_timer_expire():
 	$ScrollContainer.process_mode = Node.PROCESS_MODE_DISABLED
