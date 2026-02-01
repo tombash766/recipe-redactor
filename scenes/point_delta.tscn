@@ -181,7 +181,6 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(68, 35)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "-1"
 label_settings = SubResource("LabelSettings_2ji2i")
 horizontal_alignment = 1
 vertical_alignment = 1
