@@ -62,6 +62,8 @@ func add_points(n):
 	points += n
 	$Points.text = str(points)
 	$PointDelta.add_points_anim(n)
+	$Points/AnimationPlayer.stop()
+	$Points/AnimationPlayer.current_animation = "score_highlight"
 	
 func _on_caret_changed() -> void:
 	if first:

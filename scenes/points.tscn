@@ -1,9 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://bm5j78ysqyu6j"]
+[gd_scene load_steps=6 format=3 uid="uid://bm5j78ysqyu6j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1glcx"]
 font_size = 50
 
 [sub_resource type="LabelSettings" id="LabelSettings_y6uwi"]
+
+[sub_resource type="Animation" id="Animation_jpldl"]
+resource_name = "score_highlight"
+length = 0.522
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:label_settings:font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.21568628, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qq43p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:label_settings:font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fug4t"]
+_data = {
+&"RESET": SubResource("Animation_qq43p"),
+&"score_highlight": SubResource("Animation_jpldl")
+}
 
 [node name="Points" type="Label"]
 offset_right = 98.0
@@ -24,3 +61,8 @@ text = "SCORE"
 label_settings = SubResource("LabelSettings_y6uwi")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fug4t")
+}

@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://u26mkss0obsl" path="res://scenes/cards/hand.tscn" id="3_k5kmn"]
 [ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="4_5t5pj"]
 [ext_resource type="PackedScene" uid="uid://j4fk85se27ci" path="res://scenes/cards/dealer.tscn" id="4_54i3o"]
-[ext_resource type="PackedScene" uid="uid://2wefs1r3qmr7" path="res://scenes/remaining_countdown.tscn" id="6_7mwiu"]
-[ext_resource type="PackedScene" path="res://scenes/points.tscn" id="7_sm6fn"]
-[ext_resource type="PackedScene" path="res://scenes/point_delta.tscn" id="8_7mwiu"]
+[ext_resource type="PackedScene" uid="uid://b0iku48dm8hs" path="res://scenes/remaining_countdown.tscn" id="6_7mwiu"]
+[ext_resource type="PackedScene" uid="uid://bm5j78ysqyu6j" path="res://scenes/points.tscn" id="7_sm6fn"]
+[ext_resource type="PackedScene" uid="uid://ewhu2u814dv3" path="res://scenes/point_delta.tscn" id="8_7mwiu"]
 
 [sub_resource type="Theme" id="Theme_cxcll"]
 default_font = ExtResource("3_80t8n")
@@ -71,7 +71,7 @@ caret_multiple = false
 script = ExtResource("2_2dchv")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 48.0
+wait_time = 64.0
 one_shot = true
 
 [node name="StartCountdown" type="Label" parent="."]
