@@ -13,7 +13,7 @@ func add_card(c : Card) -> void:
 	cards.push_back(c)
 	add_child(c)
 	c.set_position( c.get_position() - get_position() )
-	c.z_index = get_amount()
+	c.z_index = get_amount() * 2 + 10
 	c.targetPos = get_position()
 	c.set_facing(true)
 	distribute_cards()
@@ -31,9 +31,16 @@ func distribute_cards():
 	var n = get_amount()
 	if n == 0: return
 	if n > 1:
+		var radius = width * 50  # tune this
 		for i in range(n):
-			cards[i].targetPos = Vector2( -width / float(2), 0) + Vector2(width, 0) * i / ( n - 1 )
-			cards[i].targetRot = ( ANGLEOFFSET * n ) * ( 0.5 - ( i / float(n-1) ) )
+			var t := i / float(n - 1)
+			var ang = lerp(-ANGLEOFFSET, ANGLEOFFSET, t)
+
+			cards[i].targetRot = -ang
+			cards[i].targetPos = Vector2(
+				sin(ang) * radius,
+				(1.0 - cos(ang)) * radius
+			)
 	else:
 		cards[0].targetPos = Vector2()
 		

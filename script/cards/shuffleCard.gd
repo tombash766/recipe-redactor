@@ -5,6 +5,8 @@ func setCardProps():
 	numArgs = 1
 	reg = RegEx.new()
 	reg.compile("[a-zA-Z]{3,}", true)
+	regDesc = "word longer than 3 characters"
+	desc = "shuffles the letters of a word"
 
 func distort(arg):
 	var a = Array( arg[0]["word"].split("") )

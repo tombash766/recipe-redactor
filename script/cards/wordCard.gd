@@ -10,6 +10,8 @@ func setCardProps():
 	if word == null || word == "":
 		word = CardManager.WORDLIST.pick_random()
 	get_child(0).set_text(word)
+	regDesc = "word or number of any length"
+	desc = "replaces a word with %s" % word
 
 func distort(args):
 	args[0]["word"] = cap_if_capped(args[0]["word"], word)

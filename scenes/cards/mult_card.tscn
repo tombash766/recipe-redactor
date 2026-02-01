@@ -1,7 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://by1ay8t6niwg7"]
+[gd_scene load_steps=4 format=3 uid="uid://by1ay8t6niwg7"]
 
 [ext_resource type="PackedScene" uid="uid://ycndkh5uk54t" path="res://scenes/cards/card.tscn" id="1_7sahc"]
 [ext_resource type="Script" uid="uid://dd6byabqtd88q" path="res://script/cards/multCard.gd" id="2_t4tvh"]
+[ext_resource type="Theme" uid="uid://i51yyj0b2s3u" path="res://theme.tres" id="3_cifj4"]
 
 [node name="MultCard" instance=ExtResource("1_7sahc")]
 script = ExtResource("2_t4tvh")
+
+[node name="Label" type="Label" parent="." index="0"]
+z_index = 1
+offset_left = -73.0
+offset_top = -112.0
+offset_right = 73.0
+offset_bottom = 29.0
+theme = ExtResource("3_cifj4")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "×99"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="CardTex" parent="." index="2"]
+frame = 3

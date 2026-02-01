@@ -4,6 +4,8 @@ extends Node2D
 var typeInd
 var numArgs
 var reg
+var regDesc
+var desc
 
 var faceUp = false
 var targetPos;
@@ -14,6 +16,7 @@ var tex
 func apply(args):
 	for arg in args:
 		if ( reg.search(arg) == null ):
+			assert (false)
 			return
 	assert ( len(args) == numArgs )
 	return distort(args)
