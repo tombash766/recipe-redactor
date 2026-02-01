@@ -82,9 +82,15 @@ func get_random_card():
 	if dealer == null : findDealer()
 	var ind = randi() % len(cardPresets)
 	var c = cardPresets[ind].instantiate()
+	while not c is Card: # hack
+		ind = randi() % len(cardPresets)
+		c = cardPresets[ind].instantiate()
 	if c is ModCard:
 		ind = randi() % len(cardPresets)
 		c = cardPresets[ind].instantiate()
+		while not c is Card: # hack
+			ind = randi() % len(cardPresets)
+			c = cardPresets[ind].instantiate()
 	if c is ModCard:
 		cardPresets.remove_at(ind)
 	c.set_position( dealer.get_position() )
