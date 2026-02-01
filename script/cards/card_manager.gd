@@ -88,7 +88,8 @@ func get_random_card():
 	if c is ModCard:
 		cardPresets.remove_at(ind)
 	c.set_position( dealer.get_position() )
-	c.faceUp = false
+	if c.faceUp == null:
+		c.faceUp = false
 	return c
 	
 func get_full_deck():
